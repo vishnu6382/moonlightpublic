@@ -1,0 +1,226 @@
+.faqSection {
+  position: relative;
+  width: 100%;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.05fr 1.95fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: flex-start;
+}
+
+/* Left Intro Column */
+.introCol {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 100px;
+}
+
+.sectionLabel {
+  font-family: var(--font-cinzel), serif;
+  font-size: var(--font-label, 0.8125rem);
+  color: #7E511B;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.sectionTitle {
+  font-size: var(--font-h2);
+  line-height: 1.25;
+  color: var(--text-dark, #120F0C);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+}
+
+.introText {
+  color: var(--muted);
+  font-size: var(--font-body);
+  font-weight: 500;
+  line-height: 1.65;
+  margin-bottom: var(--space-5);
+}
+
+.contactPrompt {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 20px;
+  border-radius: var(--radius-tile);
+  background-color: var(--tile);
+  border: 1px solid var(--border);
+}
+
+.promptLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--bronze);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.contactLink:hover {
+  color: #8C5E28;
+  transform: translateX(3px);
+}
+
+.linkArrow {
+  font-size: 1.1rem;
+}
+
+/* Right Accordion Column */
+.accordionCol {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.accordionItem {
+  background-color: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.accordionItem:hover {
+  border-color: rgba(169, 121, 62, 0.45);
+}
+
+.itemOpen {
+  border-color: var(--bronze);
+  box-shadow: 0 8px 24px rgba(27, 27, 27, 0.05);
+  background-color: var(--tile);
+}
+
+/* Big Tap Target Question Button */
+.questionBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.questionText {
+  font-family: var(--font-cinzel), serif;
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  font-weight: 700;
+  color: var(--text-dark, #120F0C);
+  line-height: 1.35;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.demoBadge {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(169, 121, 62, 0.15);
+  color: #7E511B;
+  border: 1px solid rgba(169, 121, 62, 0.35);
+  line-height: 1;
+}
+
+.chevron {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--tile);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bronze);
+  flex-shrink: 0;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+}
+
+.itemOpen .chevron {
+  background-color: var(--bronze);
+  color: #FFFFFF;
+  border-color: var(--bronze);
+}
+
+.chevronRotated {
+  transform: rotate(180deg);
+}
+
+/* Smooth Accordion Body */
+.answerWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.answerOpen {
+  grid-template-rows: 1fr;
+}
+
+.answerInner {
+  overflow: hidden;
+}
+
+.answerText {
+  padding: 0 24px 22px 24px;
+  color: var(--muted);
+  font-size: var(--font-body);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron,
+  .answerWrap {
+    transition: none !important;
+  }
+}
+
+/* Tablet & Mobile Responsiveness */
+@media (max-width: 900px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .introCol {
+    position: static;
+  }
+
+  .questionBtn {
+    padding: 16px 18px;
+  }
+
+  .questionText {
+    font-size: 1.05rem;
+  }
+
+  .answerText {
+    padding: 0 18px 18px 18px;
+    font-size: 0.95rem;
+  }
+}

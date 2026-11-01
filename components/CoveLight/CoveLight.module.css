@@ -1,0 +1,83 @@
+.wrap {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: clip;
+  display: flex;
+  align-items: center;
+}
+
+.center {
+  justify-content: center;
+}
+
+.left {
+  justify-content: flex-start;
+}
+
+.right {
+  justify-content: flex-end;
+}
+
+/* Minimal, Soft Warm Luxury Ambient Glow (No loud rings, no solid egg plates) */
+.ambientAura {
+  width: min(850px, 85vw);
+  height: min(450px, 60vh);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(243, 185, 107, 0.12) 0%,
+    rgba(255, 226, 176, 0.05) 45%,
+    transparent 70%
+  );
+  filter: blur(55px);
+  opacity: 0.2;
+  transform: scale(0.92);
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.left .ambientAura {
+  margin-left: -15%;
+}
+
+.right .ambientAura {
+  margin-right: -15%;
+}
+
+.lit .ambientAura {
+  opacity: calc(0.85 * var(--cove-intensity, 1));
+  transform: scale(1);
+  animation: auraBreathe 7s ease-in-out infinite 1.2s;
+}
+
+@keyframes auraBreathe {
+  0%, 100% {
+    opacity: calc(0.85 * var(--cove-intensity, 1));
+    transform: scale(1);
+  }
+  50% {
+    opacity: calc(0.55 * var(--cove-intensity, 1));
+    transform: scale(1.04);
+  }
+}
+
+@media (max-width: 768px) {
+  .ambientAura {
+    width: 95vw;
+    height: 40vh;
+    filter: blur(40px);
+    opacity: 0.15;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambientAura {
+    transition: none !important;
+    animation: none !important;
+    opacity: 0.6 !important;
+    transform: none !important;
+  }
+}

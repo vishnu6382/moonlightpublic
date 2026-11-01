@@ -1,0 +1,172 @@
+/* ==========================================================================
+   FLOATING ACTION WIDGET (MOBILE & DESKTOP)
+   Positioned at Bottom-Right corner with elegant pulse & float animation
+   ========================================================================== */
+
+.floatingWidget {
+  position: fixed;
+  bottom: clamp(20px, 3.5vw, 32px);
+  right: clamp(16px, 3vw, 32px);
+  z-index: 8500;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  pointer-events: auto;
+  animation: fabEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+body[data-sheet-open="true"] .floatingWidget {
+  display: none !important;
+}
+
+@keyframes fabEnter {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Call Button (Bronze circle FAB) */
+.fabCallBtn {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #B88A4E 0%, #8A622A 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(138, 98, 42, 0.38);
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.fabCallBtn:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 8px 24px rgba(138, 98, 42, 0.48);
+}
+
+.fabCallBtn:active {
+  transform: scale(0.95);
+}
+
+/* WhatsApp Button (WhatsApp Green FAB with Pulse Wave Animation) */
+.fabWhatsAppBtn {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2CE271 0%, #1EBE5D 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.42);
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.fabWhatsAppBtn:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.55);
+}
+
+.fabWhatsAppBtn:active {
+  transform: scale(0.95);
+}
+
+/* Continuous Pulse Wave Ring around WhatsApp */
+.pulseRing {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(37, 211, 102, 0.65);
+  animation: fabPulseRing 2.4s infinite cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+@keyframes fabPulseRing {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+  60%, 100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+.fabIcon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.fabCallBtn .fabIcon {
+  width: 22px;
+  height: 22px;
+}
+
+/* Tooltip on Desktop hover */
+.fabTooltip {
+  position: absolute;
+  right: calc(100% + 10px);
+  background: rgba(31, 26, 23, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (min-width: 769px) {
+  .fabCallBtn:hover .fabTooltip,
+  .fabWhatsAppBtn:hover .fabTooltip {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .fabTooltip {
+    display: none;
+  }
+
+  .fabCallBtn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .fabWhatsAppBtn {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floatingWidget {
+    animation: none !important;
+    transition: none !important;
+  }
+  .pulseRing {
+    animation: none !important;
+    display: none;
+  }
+}

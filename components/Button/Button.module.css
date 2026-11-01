@@ -1,0 +1,69 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+  outline: none;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--bronze);
+  outline-offset: 2px;
+}
+
+/* Variants */
+.outline {
+  border: 1.5px solid var(--bronze);
+  color: #7E511B;
+  font-weight: 600;
+  background-color: transparent;
+}
+
+.outline:hover {
+  background-color: rgba(169, 121, 62, 0.08); /* slight fill on hover, no harsh glow */
+  color: #694112;
+}
+
+.solid {
+  background-color: var(--bronze);
+  color: var(--white);
+  border: 1.5px solid var(--bronze);
+}
+
+.solid:hover {
+  background-color: #936833;
+  border-color: #936833;
+}
+
+.ghost {
+  background-color: transparent;
+  color: var(--text);
+  border: 1.5px solid transparent;
+}
+
+.ghost:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Sizes */
+.sm {
+  padding: 6px 16px;
+  font-size: var(--font-small);
+}
+
+.md {
+  padding: 10px 24px;
+  font-size: var(--font-body);
+}
+
+.lg {
+  padding: 14px 32px;
+  font-size: 1.05rem;
+}

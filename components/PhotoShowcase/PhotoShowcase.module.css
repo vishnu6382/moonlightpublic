@@ -1,0 +1,339 @@
+.showcaseSection {
+  position: relative;
+  width: 100%;
+}
+
+/* Big Rounded Panel holding the entire portal showcase */
+.panelCard {
+  background-color: var(--tile);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card); /* 32px */
+  padding: var(--space-6);
+  box-shadow: var(--shadow-soft);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Portal Layout 3-column desktop: Left Col, Center Block (Hero + Portal + Connectors), Right Col */
+.portalGrid {
+  display: grid;
+  grid-template-columns: 1fr 2.2fr 1fr;
+  gap: var(--gap);
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Left & Right side columns */
+.sideColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+/* Center Portal Block */
+.centerPortalBlock {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  min-height: 520px;
+}
+
+/* Hero Tile: Always a Photo */
+.heroTile {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  border-radius: var(--radius-tile);
+  background-color: #EFECE6;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+/* Connector Tiles Row directly below hero */
+.connectorRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  flex: 1;
+  min-height: 200px;
+}
+
+.connectorLeft {
+  position: relative;
+  border-radius: var(--radius-tile);
+  background-color: #EFECE6;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.connectorRight {
+  position: relative;
+  border-radius: var(--radius-tile);
+  background-color: #EFECE6;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+/* Crossroads Portal Anchor: centered at midpoint between hero and connectors */
+.portalAnchor {
+  position: absolute;
+  top: 328px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+}
+
+/* Side Tiles */
+.sideTile {
+  position: relative;
+  flex: 1;
+  min-height: 180px;
+  border-radius: var(--radius-tile);
+  background-color: #EFECE6;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+/* Common Media Item */
+.mediaItem {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.heroTile:hover .mediaItem,
+.connectorLeft:hover .mediaItem,
+.connectorRight:hover .mediaItem,
+.sideTile:hover .mediaItem,
+.extraTile:hover .mediaItem {
+  transform: scale(1.04);
+}
+
+/* Play Badge for Video Slots */
+.playBadge {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--bronze);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  font-size: 0.75rem;
+}
+
+/* Caption tag only if caption exists */
+.tileCaption {
+  position: absolute;
+  bottom: var(--space-3);
+  left: var(--space-3);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-family: var(--font-poppins), sans-serif;
+  color: #120F0C;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* Extra Bento Row for > 7 items */
+.extraBentoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+  margin-top: var(--gap);
+  width: 100%;
+}
+
+.extraTile {
+  position: relative;
+  height: 220px;
+  border-radius: var(--radius-tile);
+  background-color: #EFECE6;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+/* Bottom Row: Pills + View Gallery Button */
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+
+.pillsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.pillItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  font-size: var(--font-small);
+  color: var(--text);
+  font-weight: 500;
+}
+
+.pillDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--bronze);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroTile:hover .mediaItem,
+  .connectorLeft:hover .mediaItem,
+  .connectorRight:hover .mediaItem,
+  .sideTile:hover .mediaItem,
+  .extraTile:hover .mediaItem {
+    transform: none;
+  }
+}
+
+/* Tablet & Mobile Layout: Portal First, Tiles in 2 columns */
+@media (max-width: 900px) {
+  .panelCard {
+    padding: var(--space-4);
+    border-radius: 24px;
+  }
+
+  .portalGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .centerPortalBlock {
+    order: 1;
+    min-height: 440px;
+  }
+
+  .heroTile {
+    height: 240px;
+  }
+
+  .portalAnchor {
+    top: 246px;
+  }
+
+  .connectorLeft {
+    min-height: 140px;
+  }
+
+  .connectorRight {
+    min-height: 140px;
+  }
+
+  .sideColumn {
+    order: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2-column tiles on mobile */
+    gap: 12px;
+  }
+
+  .extraBentoGrid {
+    grid-template-columns: 1fr 1fr; /* 2-column tiles on mobile */
+    gap: 10px;
+  }
+
+  .bottomRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 500px) {
+  .connectorRow {
+    min-height: 150px;
+  }
+}
+
+/* Category Filter Pills (matching Gallery page) */
+.categoryFilterRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 0 20px 0;
+  margin-top: -10px;
+}
+
+.categoryFilterRow::-webkit-scrollbar {
+  display: none;
+}
+
+.filterPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--tile, #FBF9F4);
+  border: 1px solid var(--border, #EAE3D3);
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-dark, #120F0C);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.filterPill:hover {
+  background: #F4EFE6;
+  border-color: #DCD3BF;
+}
+
+.filterPillActive {
+  background: var(--text-dark, #120F0C) !important;
+  color: #FFFFFF !important;
+  border-color: var(--text-dark, #120F0C) !important;
+  box-shadow: 0 4px 14px rgba(18, 15, 12, 0.16);
+}
+
+.pillBadge {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.8;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(18, 15, 12, 0.08);
+}
+
+.filterPillActive .pillBadge {
+  background: rgba(255, 255, 255, 0.2);
+}

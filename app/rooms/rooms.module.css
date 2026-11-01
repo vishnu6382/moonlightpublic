@@ -1,0 +1,300 @@
+.roomsPageSection {
+  position: relative;
+  padding-top: 16px; /* 16px desktop / 12px phone under nav */
+  padding-bottom: var(--section-padding-y, clamp(40px, 5vw, 72px));
+  width: 92%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .roomsPageSection {
+    padding-top: 12px;
+  }
+}
+
+.introHeader {
+  margin-bottom: 20px; /* 20px under title */
+}
+
+.pageTitle {
+  font-family: var(--font-cinzel), Georgia, serif;
+  font-size: var(--title-page-main, clamp(32px, 3.6vw, 46px));
+  font-weight: var(--weight-page-main, 800);
+  color: var(--text-dark, #120F0C);
+  line-height: 1.1;
+  margin: 0 0 8px 0;
+}
+
+.pageSubtitle {
+  color: var(--muted, #4A4339);
+  font-size: var(--font-body);
+  font-weight: var(--weight-body);
+  max-width: 720px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.portalPanel {
+  background-color: var(--white, #FFFFFF);
+  border: 1px solid var(--border, #EAE3D3);
+  border-radius: 32px;
+  padding: clamp(16px, 2.5vw, 32px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.03);
+  margin-bottom: var(--block-gap, 40px);
+}
+
+.featuredPortalGrid {
+  display: grid;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.gridBothSides {
+  grid-template-columns: 1.15fr 1.7fr 1.15fr;
+}
+
+.gridLeftSide {
+  grid-template-columns: 1.15fr 2fr;
+}
+
+.gridRightSide {
+  grid-template-columns: 2fr 1.15fr;
+}
+
+.gridCenterOnly {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 1200px) {
+  .gridBothSides {
+    grid-template-columns: 1.1fr 1.6fr 1.1fr;
+    gap: 12px;
+  }
+  .gridLeftSide {
+    grid-template-columns: 1.1fr 1.8fr;
+    gap: 12px;
+  }
+  .gridRightSide {
+    grid-template-columns: 1.8fr 1.1fr;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 992px) {
+  .featuredPortalGrid,
+  .gridBothSides,
+  .gridLeftSide,
+  .gridRightSide,
+  .gridCenterOnly {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.sideColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sideTile {
+  flex: 1;
+  min-height: clamp(240px, 24vw, 380px);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+/* Center Portal Block */
+.centerBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+.heroTileWrapper {
+  position: relative;
+  width: 100%;
+  height: clamp(290px, 26vw, 360px);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+/* The circular Moon Portal sits in the notch between hero and connectors */
+.portalAnchor {
+  position: absolute;
+  top: clamp(290px, 26vw, 360px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.connectorsRow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 0;
+}
+
+.connectors1 {
+  grid-template-columns: 1fr;
+}
+
+.connectors3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 992px) {
+  .connectorsRow.connectors3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .connectorsRow,
+  .connectorsRow.connectors3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.connectorTile {
+  height: clamp(240px, 22vw, 320px);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+/* --- Dense Bento Grid for Remaining Rooms --- */
+.denseGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.denseTileWrapper {
+  height: clamp(240px, 24vw, 380px);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.spanSingle {
+  grid-column: span 1;
+}
+
+.spanWide {
+  grid-column: span 2;
+}
+
+.spanFull {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 992px) {
+  .denseGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .denseTileWrapper {
+    height: 240px;
+  }
+
+  .spanWide {
+    grid-column: span 2;
+  }
+}
+
+/* Tablet Layout: 3 per row */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .featuredPortalGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .connectorsRow {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .denseGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .denseTileWrapper {
+    height: clamp(240px, 22vw, 320px);
+  }
+}
+
+/* Phone Layout: Strictly 2 per row, center round portal at 50% */
+@media (max-width: 768px) {
+  .roomsPageSection {
+    width: calc(100% - 24px);
+    padding-top: 12px;
+  }
+
+  .portalPanel {
+    padding: 12px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .featuredPortalGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    position: relative;
+  }
+
+  .centerBlock {
+    display: contents;
+  }
+
+  .heroTileWrapper {
+    grid-column: span 1;
+    height: 220px;
+  }
+
+  .portalAnchor {
+    position: absolute;
+    top: calc(12px + 220px + 5px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+
+  .connectorsRow {
+    display: contents;
+  }
+
+  .connectorTile {
+    grid-column: span 1;
+    height: 220px;
+  }
+
+  .sideColumn {
+    display: contents;
+  }
+
+  .sideTile {
+    grid-column: span 1;
+    height: 220px;
+    min-height: unset;
+  }
+
+  .denseGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .denseTileWrapper {
+    height: 220px;
+  }
+
+  /* On phone, last odd item spans full width to balance last row */
+  .denseTileWrapper:last-child:nth-child(odd) {
+    grid-column: span 2;
+  }
+}

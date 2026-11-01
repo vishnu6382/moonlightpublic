@@ -1,0 +1,290 @@
+@import "lenis/dist/lenis.css";
+
+:root {
+  /* Brand Colours: Bolder, Darker Palette */
+  --white: #FFFFFF;
+  --tile: #FBF9F4;
+  --border: #EAE3D3;
+  --bronze: #A9793E;
+  --gold: #D4C76F;
+  --gold-bright: #F6C90E;
+  --text: #1F1B16; /* Dark body text (never light grey) */
+  --text-dark: #120F0C;
+  --muted: #4A4339; /* Secondary text (never lighter than #4A4339) */
+  --footer-bg: #F4F1EA;
+
+  /* Spacing Scale (4, 8, 16, 24, 32, 48, 80) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 80px;
+
+  /* Border Radii */
+  --radius-tile: 24px;
+  --radius-card: 32px;
+  --radius-pill: 999px;
+
+  /* Grid Gap (desktop default: 16px) */
+  --gap: 16px;
+
+  /* Soft Luxury Shadow */
+  --shadow-soft: 0 4px 20px rgba(27, 27, 27, 0.05), 0 1px 3px rgba(27, 27, 27, 0.03);
+  --shadow-hover: 0 10px 30px rgba(27, 27, 27, 0.08);
+
+  /* Spacing System Tokens (TASK 04b) */
+  --section-padding-y: clamp(40px, 5vw, 72px);
+  --header-to-content: 24px;
+  --panel-padding: clamp(16px, 2.5vw, 32px);
+  --block-gap: 40px;
+  --block-gap-mobile: 28px;
+
+  /* Typography Scale: Section & Title Tokens (TASK 04e & 05c) */
+  --title-page-main: clamp(32px, 3.6vw, 46px);
+  --weight-page-main: 800;
+  --title-section: clamp(24px, 2.4vw, 32px);
+  --title-label: 12px;
+  --title-card: clamp(17px, 1.5vw, 22px);
+  --title-hero-room: clamp(34px, 4.6vw, 60px);
+
+  --font-h1: clamp(2.2rem, 4.5vw, 3.2rem);
+  --font-h2: var(--title-section); /* clamp(24px, 2.4vw, 32px) */
+  --font-h3: clamp(1.25rem, 2vw, 1.6rem);
+  --font-h4: clamp(1.1rem, 1.6vw, 1.35rem);
+  --font-card-title: var(--title-card); /* clamp(17px, 1.5vw, 22px) bold */
+  --font-body: 1.0625rem; /* 17-18px desktop */
+  --font-small: 0.9375rem; /* 15px */
+  --font-label: var(--title-label); /* 12px */
+
+  /* Typography Weights */
+  --weight-body: 500;
+  --weight-semibold: 600;
+  --weight-heading: 700;
+
+  /* Container Max Width */
+  --container-max: 1500px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --gap: 12px;
+    --space-6: 36px;
+    --space-7: 56px;
+    --font-body: 1.0625rem; /* 17px phone */
+    --font-small: 0.875rem; /* 14px */
+  }
+}
+
+/* CSS Reset & Defaults */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  background-color: var(--white);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Lenis Luxury Smooth Scrolling Core */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+body {
+  background-color: var(--white);
+  color: var(--text);
+  font-family: var(--font-poppins), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: var(--font-body);
+  font-weight: var(--weight-body);
+  line-height: 1.65;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+main {
+  flex: 1 0 auto;
+  width: 100%;
+}
+
+/* Headings: Bolder Weight 700 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-cinzel), Georgia, serif;
+  color: var(--text);
+  line-height: 1.25;
+  font-weight: var(--weight-heading);
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: var(--font-h1); }
+h2 { font-size: var(--font-h2); }
+h3 { font-size: var(--font-h3); }
+h4 { font-size: var(--font-h4); }
+
+p {
+  color: var(--muted);
+  font-weight: var(--weight-body);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Global Container Utility */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+}
+
+/* Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   TASK 09b — Z-INDEX ARCHITECTURE MAP
+   background (-1) < cove light (-1) < content (20) <
+   bottom bar (60) < navbar (100) < mobile menu (999) < cursor FX (1500) <
+   lightbox/modal (9999)
+   ========================================================================== */
+
+/* Top Scroll Progress Line */
+.scroll-progress-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #C9A25D, #F3B96B, #FFE2B0);
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 105;
+  pointer-events: none;
+  transition: transform 0.1s linear;
+}
+
+/* Heading Gold Underline */
+.heading-gold-underline {
+  display: block;
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(90deg, #C9A25D, #F3B96B);
+  border-radius: 2px;
+  margin-top: 10px;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.heading-gold-underline.is-visible {
+  transform: scaleX(1);
+}
+
+/* Section Light-Up Effect */
+[data-moon-section] {
+  position: relative;
+  isolation: isolate;
+}
+
+[data-moon-section]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 50%,
+    rgba(201, 162, 92, 0.12) 0%,
+    rgba(212, 199, 111, 0.04) 50%,
+    transparent 80%
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-moon-section].is-lit::before {
+  opacity: 0.6;
+}
+
+[data-moon-section].was-lit::before {
+  opacity: 0.25;
+}
+
+[data-moon-section] img,
+[data-moon-section] video {
+  filter: brightness(0.94);
+  transition: filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-moon-section].is-lit img,
+[data-moon-section].is-lit video,
+[data-moon-section].was-lit img,
+[data-moon-section].was-lit video {
+  filter: brightness(1);
+}
+
+/* Mobile bottom bar spacing on page */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  }
+}
+

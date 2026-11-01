@@ -1,0 +1,37 @@
+{
+  "name": "moonlight-resort",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "node scripts/check-no-demo.mjs && node scripts/generate-pano-previews.mjs && next build --webpack",
+    "start": "next start",
+    "frames": "node scripts/prepare-frames.mjs",
+    "nearby:check": "node scripts/check-nearby-routes.mjs",
+    "check:demo": "node scripts/check-no-demo.mjs",
+    "content:reset:dry": "node scripts/reset-content.mjs --dry-run",
+    "content:reset": "node scripts/reset-content.mjs"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.11.0",
+    "jose": "^6.2.13",
+    "leaflet": "^1.9.4",
+    "lenis": "^1.3.27",
+    "mongoose": "^9.11.4",
+    "next": "16.4.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "sharp": "^0.33.5",
+    "three": "^0.186.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^16.4.3",
+    "lighthouse": "^13.6.0"
+  }
+}

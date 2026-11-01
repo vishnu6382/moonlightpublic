@@ -1,0 +1,36 @@
+.nearbySection {
+  position: relative;
+}
+
+.homeCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: var(--space-4, 16px);
+}
+
+@media (min-width: 1024px) {
+  .homeCardsGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 680px) {
+  .homeCardsGrid > *:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+.ctaRow {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-6, 32px);
+}
+
+.viewAllPill {
+  border-radius: 9999px;
+  padding: 12px 28px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}

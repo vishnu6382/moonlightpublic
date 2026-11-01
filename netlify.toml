@@ -1,0 +1,9 @@
+# Netlify Configuration for Next.js App Router
+# Netlify automatically configures its OpenNext runtime adapter.
+# Do not override publish directory or add legacy plugins.
+
+[build]
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"

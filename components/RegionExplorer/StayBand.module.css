@@ -1,0 +1,88 @@
+.stayBandContainer {
+  margin: var(--space-8, 48px) 0 var(--space-4, 24px) 0;
+  width: 100%;
+}
+
+.stayBandPanel {
+  background: #FFFFFF;
+  border: 1px solid #EAE3D3;
+  border-radius: 28px;
+  box-shadow: 0 10px 30px rgba(31, 27, 22, 0.06);
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 20px;
+}
+
+@media (min-width: 680px) {
+  .stayBandPanel {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 32px 40px;
+  }
+}
+
+.stayBandHeading {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+  font-weight: 700;
+  color: var(--charcoal, #1B1B1B);
+  margin: 0;
+}
+
+.stayBandButtonsRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.whatsappBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #25D366;
+  color: #FFFFFF;
+  border-radius: 9999px;
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 3px 12px rgba(37, 211, 102, 0.3);
+  transition: all 0.22s ease;
+}
+
+.whatsappBtn:hover {
+  background: #20BD5A;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+}
+
+.callBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #2E2822;
+  color: #FFFFFF;
+  border-radius: 9999px;
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+  transition: all 0.22s ease;
+}
+
+.callBtn:hover {
+  background: #473F36;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}

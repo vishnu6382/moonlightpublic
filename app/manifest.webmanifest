@@ -1,0 +1,22 @@
+{
+  "name": "Moon Light Resort",
+  "short_name": "Moon Light",
+  "description": "Moon Light Resort in Nedungulam, Tamil Nadu offers villa rooms, dorms, a clean pool, and open spaces for families and group stays.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#A9793E",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
+

@@ -1,0 +1,535 @@
+.introSection {
+  height: 200vh;
+  position: relative;
+  width: 100%;
+  background-color: #0b0c0e;
+}
+
+@media (max-width: 768px) {
+  .introSection {
+    height: 175vh;
+  }
+}
+
+/* 100svh sticky viewport stage */
+.stage {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background-color: #0b0c0e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: pan-y;
+}
+
+/* Full-screen cover canvas with CSS grade filters */
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 1;
+  filter: saturate(1.1) contrast(1.05);
+  pointer-events: none;
+  touch-action: pan-y;
+}
+
+/* 5. CSS Grade & Lighting Overlays */
+.gradeAmber {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(229, 169, 82, 0.12); /* warm golden-hour amber tint */
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.gradeGradients {
+  position: absolute;
+  inset: 0;
+  background: 
+    /* Dark top gradient for pristine Nav contrast */
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.25) 20%, transparent 40%),
+    /* Dark bottom-left gradient for text block contrast */
+    radial-gradient(ellipse 65% 55% at 10% 85%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.35) 60%, transparent 100%),
+    /* Subtle vignette around edges */
+    radial-gradient(ellipse 90% 80% at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.45) 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Skip Intro button */
+.skipButton {
+  position: absolute;
+  top: 86px;
+  right: 28px;
+  z-index: 40;
+  background-color: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 199, 111, 0.4);
+  color: #FFFFFF;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  pointer-events: auto;
+}
+
+.skipButton:hover {
+  background-color: rgba(212, 199, 111, 0.2);
+  border-color: var(--gold);
+}
+
+@media (max-width: 768px) {
+  .skipButton {
+    top: 76px;
+    right: 16px;
+    padding: 5px 12px;
+  }
+}
+
+/* Main Text & Overlay Layer (Matches Reference Image) */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 85px 44px 28px 44px;
+  box-sizing: border-box;
+  pointer-events: none;
+  touch-action: pan-y;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+@media (max-width: 768px) {
+  .overlay {
+    padding: 72px 18px 16px 18px;
+  }
+}
+
+/* Middle Content Container (Holds Left Hero & Right Feature Panel) */
+.middleContent {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-top: auto;
+  margin-bottom: var(--space-5);
+  width: 100%;
+  max-width: 1380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 992px) {
+  .middleContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+}
+
+/* 2. LEFT Block (Eyebrow + 2-line Heading + Para + Gold Pill Button) */
+.leftBlock {
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  text-align: left;
+}
+
+.eyebrowRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eyebrowLine {
+  width: 32px;
+  height: 1.5px;
+  background-color: var(--gold);
+}
+
+.eyebrowText {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.headingWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.headingLine1 {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(2.2rem, 4.4vw, 3.8rem);
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1.1;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+}
+
+.headingLine2 {
+  font-family: var(--font-cinzel), Georgia, serif;
+  font-size: clamp(2.2rem, 4.6vw, 4rem);
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.12;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.85);
+}
+
+.description {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.88rem, 1.1vw, 1.05rem);
+  line-height: 1.6;
+  max-width: 460px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+.ctaButton {
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background-color: var(--gold);
+  color: #1b1b1b;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  pointer-events: auto;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.ctaButton:hover {
+  background-color: #ebd97c;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .middleContent {
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .leftBlock {
+    gap: 10px;
+    max-width: 100%;
+  }
+  .eyebrowRow {
+    gap: 8px;
+  }
+  .eyebrowLine {
+    width: 20px;
+  }
+  .eyebrowText {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+  }
+  .headingLine1 {
+    font-size: clamp(1.35rem, 5vw, 1.85rem);
+    line-height: 1.15;
+  }
+  .headingLine2 {
+    font-size: clamp(1.4rem, 5.8vw, 2.05rem);
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+  }
+  .description {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    max-width: 330px;
+    opacity: 0.9;
+    margin-top: 2px;
+  }
+  .ctaButton {
+    padding: 9px 22px;
+    font-size: 0.84rem;
+    margin-top: 2px;
+  }
+}
+
+/* 3. RIGHT Block: Luxury Feature Panel */
+.rightPanel {
+  background-color: rgba(15, 15, 15, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 199, 111, 0.25);
+  border-radius: 18px;
+  padding: 22px 26px;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  pointer-events: auto;
+}
+
+.panelHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(212, 199, 111, 0.2);
+  text-align: center;
+}
+
+.panelHeaderIcon {
+  width: 28px;
+  height: 20px;
+  color: var(--gold);
+}
+
+.panelHeaderTitle {
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.92);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.82rem;
+  color: #FFFFFF;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.featureIcon {
+  width: 18px;
+  height: 18px;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+@media (max-width: 992px) {
+  .rightPanel {
+    display: none; /* Hidden on mobile/small tablets for clean, uncluttered layout */
+  }
+}
+
+/* 4. BOTTOM Row (SEO Title Left, Scroll Center, 01-04 Progress Right) */
+.bottomRow {
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 12;
+}
+
+/* Bottom Left: Thin line + MOON LIGHT RESORT (Real <h1> for SEO) */
+.bottomLeftBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bottomBrandLine {
+  width: 32px;
+  height: 1.5px;
+  background-color: var(--gold);
+}
+
+.seoTitle {
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+/* Bottom Center: Scroll Down with Mouse Icon & Chevron */
+.scrollCenter {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  pointer-events: none;
+  animation: floatMouse 2.2s infinite ease-in-out;
+}
+
+.mouseIcon {
+  width: 15px;
+  height: 20px;
+  color: var(--gold);
+}
+
+.chevronIcon {
+  width: 12px;
+  height: 8px;
+  color: var(--gold);
+}
+
+@keyframes floatMouse {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateX(-50%) translateY(5px);
+    opacity: 1;
+  }
+}
+
+/* Bottom Right: 01 ———— 04 Progress Bar */
+.bottomRightProgress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-poppins), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.progressTrack {
+  width: 70px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--gold);
+  transition: width 0.1s linear;
+}
+
+@media (max-width: 768px) {
+  .bottomRow {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 6px;
+  }
+  .bottomLeftBrand {
+    order: 1;
+    gap: 8px;
+  }
+  .bottomBrandLine {
+    width: 20px;
+  }
+  .seoTitle {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+  }
+  .scrollCenter {
+    display: none; /* Hide on mobile to give room to the gate visual */
+  }
+  .bottomRightProgress {
+    order: 2;
+    font-size: 0.68rem;
+    gap: 6px;
+  }
+  .progressTrack {
+    width: 44px;
+  }
+}
+
+/* 6. WELCOME Ending Layer (Appears at 80%-100% of the scroll) */
+.welcomeLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  padding: 24px;
+  box-sizing: border-box;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.welcomeSubtitle {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: clamp(0.85rem, 1.8vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+}
+
+.welcomeTitle {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(2.8rem, 7.5vw, 6.2rem);
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.1;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .introSection {
+    height: 100svh !important;
+  }
+  .scrollCenter {
+    animation: none !important;
+  }
+  .overlay {
+    display: none !important;
+  }
+  .welcomeLayer {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

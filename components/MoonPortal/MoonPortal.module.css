@@ -1,0 +1,236 @@
+.portalWrapper {
+  --portal-d: clamp(150px, 13vw, 190px);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 25;
+  user-select: none;
+  width: var(--portal-d);
+  height: var(--portal-d);
+}
+
+.portalWrapper.clickable {
+  cursor: pointer;
+}
+
+.portalWrapper.static {
+  cursor: default;
+}
+
+/* Thin White Ring Track (40px track width) */
+.ringTrack {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: var(--white, #FFFFFF);
+  border: 1.5px solid var(--border, #E8E2D6);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Rotating SVG text ring */
+.rotatingRing {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  animation: rotatePortalRing 18s linear infinite;
+  transform-origin: center;
+  z-index: 3;
+}
+
+.ringText {
+  font-family: var(--font-cinzel), Georgia, serif;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  fill: #1F1B16;
+  
+  /* Dark bold */
+  text-transform: uppercase;
+  dominant-baseline: central;
+}
+
+.ringText360 {
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+/* Center Portal Circle: enlarged to 55% for prominent preview */
+.portalCircle {
+  position: absolute;
+  width: 55%;
+  height: 55%;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--white, #FFFFFF);
+  border: 1.5px solid var(--border, #E8E2D6);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.portalWrapper.clickable:hover .portalCircle {
+  transform: scale(1.04);
+}
+
+/* 360 preview: CSS background drift sideways */
+.portalPanoDrift {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-position: 0% 50%;
+  animation: driftPanoBackground 24s linear infinite alternate;
+}
+
+/* Static uploaded photo fill for portal */
+.portalPhoto {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.3s ease;
+}
+
+@keyframes driftPanoBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Logo mark: enlarged to 88% for prominent display */
+.logoMarkWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88%;
+  height: 88%;
+}
+
+.logoMarkImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Tiny 360 hint pill */
+.hintPill {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--border, #EAE3D3);
+  color: var(--bronze, #A9793E);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 2px 8px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Notice pill if 360 demo is not 2:1 */
+.ratioNoticePill {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #FFF1F0;
+  border: 1px solid #FFA39E;
+  color: #CF1322;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 3px 10px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  pointer-events: none;
+}
+
+@keyframes rotatePortalRing {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotatingRing {
+    animation: none;
+  }
+
+  .portalWrapper.clickable:hover .portalCircle {
+    transform: none;
+  }
+
+  .portalMedia {
+    animation: none;
+    transform: translateX(-25%);
+  }
+}
+
+/* Tablet responsive: 158px */
+@media (max-width: 900px) {
+  .portalWrapper {
+    --portal-d: 158px;
+  }
+
+  .ringText {
+    font-size: 13px;
+  }
+
+  .ringText360 {
+    font-size: 11px;
+  }
+}
+
+/* Phone responsive sizing: 144px */
+@media (max-width: 600px) {
+  .portalWrapper {
+    --portal-d: 144px;
+  }
+
+  .ringText {
+    font-size: 12px;
+  }
+
+  .ringText360 {
+    font-size: 10px;
+  }
+
+  .hintPill {
+    bottom: -18px;
+    font-size: 9px;
+    padding: 1px 6px;
+  }
+}
+
+@media (max-width: 380px) {
+  .ringText {
+    font-size: 11px;
+  }
+}

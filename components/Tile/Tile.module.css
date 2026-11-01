@@ -1,0 +1,45 @@
+.tile {
+  background-color: var(--tile);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-tile);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.tile:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: #ded6c2;
+}
+
+/* Image container with smooth subtle zoom */
+.mediaWrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.mediaWrapper img,
+.mediaWrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.tile:hover .mediaWrapper img,
+.tile:hover .mediaWrapper video {
+  transform: scale(1.05); /* subtle zoom on hover */
+}
+
+/* Tile inner content */
+.content {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1 1 auto;
+}

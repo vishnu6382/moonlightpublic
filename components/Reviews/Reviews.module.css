@@ -1,0 +1,218 @@
+.reviewsSection {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Header Row */
+.headerRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.navArrows {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.navBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.navBtn:hover {
+  background: var(--bronze);
+  color: var(--white);
+  border-color: var(--bronze);
+  transform: translateY(-1px);
+}
+
+/* Scroller Track: Continuous smooth animated scroll + manual swipeable */
+.scrollerTrack {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 4px 0 12px 0;
+  margin: 0;
+  width: 100%;
+  outline: none;
+  cursor: grab;
+  user-select: none;
+}
+
+.scrollerTrack:active {
+  cursor: grabbing;
+}
+
+.scrollerTrack::-webkit-scrollbar {
+  display: none;
+}
+
+/* Review Card: One uniform size across all cards */
+.reviewCard {
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-tile);
+  box-shadow: var(--shadow-soft);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  flex-shrink: 0;
+
+  /* Desktop: uniform card size */
+  flex: 0 0 350px;
+  width: 350px;
+  min-width: 350px;
+  max-width: 350px;
+  height: 205px;
+  min-height: 205px;
+  max-height: 205px;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.reviewCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.authorName {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reviewDate {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.googleBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4B5563;
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+
+.starsRow {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.starIcon {
+  width: 14px;
+  height: 14px;
+  fill: #F59E0B;
+}
+
+/* Clamped text for uniform card height */
+.reviewText {
+  font-size: 0.86rem;
+  color: var(--muted);
+  line-height: 1.48;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(234, 227, 211, 0.45);
+}
+
+.verifiedStayBadge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #059669;
+}
+
+/* Mobile: Card width exactly 95%, tight margins */
+@media (max-width: 768px) {
+  .headerRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .navArrows {
+    display: none;
+  }
+
+  .scrollerTrack {
+    gap: 12px;
+    padding-inline: 2.5%;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .reviewCard {
+    /* Mobile width 95% per user request */
+    flex: 0 0 95%;
+    width: 95%;
+    min-width: 95%;
+    max-width: 95%;
+    height: 195px;
+    min-height: 195px;
+    max-height: 195px;
+    padding: 14px 16px;
+  }
+
+  .reviewText {
+    -webkit-line-clamp: 4;
+    font-size: 0.84rem;
+  }
+}

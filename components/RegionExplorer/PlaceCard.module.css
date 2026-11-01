@@ -1,0 +1,331 @@
+.premiumCardLinkWrapper {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+}
+
+.premiumPlaceCard {
+  background: #FFFFFF;
+  border: 1px solid #EAE3D3;
+  border-radius: 28px;
+  box-shadow: 0 12px 32px rgba(31, 27, 22, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 460px;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+  position: relative;
+  box-sizing: border-box;
+}
+
+@media (max-width: 680px) {
+  .premiumPlaceCard {
+    height: 380px;
+    border-radius: 24px;
+    padding: 8px;
+  }
+}
+
+.premiumPlaceCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(31, 27, 22, 0.13);
+  border-color: #D4C9B5;
+}
+
+/* Variant A: Text on top, Photo below */
+.variantA {
+  flex-direction: column;
+}
+
+/* Variant B: Photo on top, Text below */
+.variantB {
+  flex-direction: column;
+}
+
+/* Photo Area: ~58% of card height, radius 22px, 8px inner margin */
+.photoArea {
+  position: relative;
+  width: 100%;
+  height: 58%;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #F3EFE8;
+  flex-shrink: 0;
+}
+
+.photoImg {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.premiumPlaceCard:hover .photoImg {
+  transform: scale(1.04);
+}
+
+/* Vibrant Gradient when no photo */
+.vibrantGradientPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  gap: 6px;
+}
+
+.placeholderIconRing {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.premiumPlaceCard:hover .placeholderIconRing {
+  transform: scale(1.08);
+}
+
+.placeInitialLetter {
+  position: absolute;
+  right: -8px;
+  bottom: -18px;
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 5.5rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.1);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.neutralBrandPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #FBF9F4 0%, #EAE4D7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholderLogoImg {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  opacity: 0.35;
+}
+
+/* Frosted Chips over photo */
+.topRightFrostedChip {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 9999px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #1B1B1B;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.topLeftDemoChip {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(228, 87, 46, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  border-radius: 9999px;
+  padding: 3px 8px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  z-index: 2;
+}
+
+.bottomFrostedChipsRow {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+  flex-wrap: wrap;
+}
+
+.frostedCategoryChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid;
+  border-radius: 9999px;
+  padding: 3px 9px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.frostedDistrictChip {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 9999px;
+  padding: 3px 9px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #2E2822;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Carousel Dots */
+.carouselDotsContainer {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 3px 6px;
+  border-radius: 9999px;
+  z-index: 3;
+}
+
+.carouselDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.carouselDot.activeDot {
+  background: #FFFFFF;
+  transform: scale(1.3);
+}
+
+/* Text Block: ~42% of card height */
+.textBlock {
+  padding: 10px 8px 6px 8px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.placeName {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--charcoal, #1B1B1B);
+  margin: 0 0 2px 0;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 680px) {
+  .placeName {
+    font-size: 1.05rem;
+  }
+}
+
+.districtTimeSubline {
+  font-size: 0.76rem;
+  color: #6E6557;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sublineDot {
+  color: #BDB4A1;
+}
+
+.descriptionText {
+  font-size: 0.8rem;
+  color: #554D40;
+  line-height: 1.45;
+  margin: 0 0 8px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.3em;
+}
+
+.descriptionSpacer {
+  min-height: 2.3em;
+}
+
+/* Bottom Action Row: Pill + Round Arrow Button */
+.bottomActionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.timeDistancePill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: #F7F5F0;
+  border: 1px solid #EAE3D3;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2E2822;
+  font-variant-numeric: tabular-nums;
+}
+
+.roundArrowBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  flex-shrink: 0;
+}
+
+.premiumPlaceCard:hover .roundArrowBtn {
+  transform: scale(1.1) rotate(-8deg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}

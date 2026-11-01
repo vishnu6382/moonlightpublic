@@ -1,0 +1,574 @@
+.previewCard {
+  background: #FFFFFF;
+  border: 1px solid #EAE3D3;
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 20px rgba(31, 27, 22, 0.04);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid #F0ECE1;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.headerTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1F1B16;
+  margin: 0;
+}
+
+.itemCountBadge {
+  background: #F4EFE6;
+  color: #6E5D4B;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.viewportTabs {
+  display: flex;
+  background: #F4EFE6;
+  border-radius: 8px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.tabBtn {
+  background: transparent;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6E5D4B;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tabBtn:hover {
+  color: #1F1B16;
+}
+
+.tabActive {
+  background: #FFFFFF;
+  color: #A9793E;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Guidance bar */
+.guidanceBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #FAF8F2;
+  border-left: 3px solid #A9793E;
+  padding: 8px 12px;
+  margin: 0.85rem 0 1.25rem 0;
+  border-radius: 4px;
+}
+
+.guidanceIcon {
+  font-size: 1rem;
+}
+
+.guidanceText {
+  font-size: 0.82rem;
+  color: #4A4237;
+  line-height: 1.4;
+}
+
+/* Frames Container */
+.framesContainer {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.frameWrap {
+  flex: 1;
+  min-width: 320px;
+}
+
+.desktopFrameWrap {
+  flex: 2;
+  min-width: 480px;
+}
+
+.mobileFrameWrap {
+  flex: 1;
+  max-width: 340px;
+}
+
+.frameLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1F1B16;
+  margin-bottom: 0.5rem;
+}
+
+.scaleNote {
+  font-size: 0.75rem;
+  color: #8C8273;
+  font-weight: 400;
+}
+
+/* Viewport windows */
+.desktopViewport {
+  background: #FBF9F4;
+  border: 2px solid #EAE3D3;
+  border-radius: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 120px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.mobileViewport {
+  background: #FBF9F4;
+  border: 2px solid #EAE3D3;
+  border-radius: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  box-sizing: border-box;
+  min-height: 120px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.desktopViewport::-webkit-scrollbar,
+.mobileViewport::-webkit-scrollbar {
+  width: 8px;
+}
+
+.desktopViewport::-webkit-scrollbar-track,
+.mobileViewport::-webkit-scrollbar-track {
+  background: #F4EFE6;
+  border-radius: 4px;
+}
+
+.desktopViewport::-webkit-scrollbar-thumb,
+.mobileViewport::-webkit-scrollbar-thumb {
+  background: #D1C5B4;
+  border-radius: 4px;
+}
+
+.desktopViewport::-webkit-scrollbar-thumb:hover,
+.mobileViewport::-webkit-scrollbar-thumb:hover {
+  background: #A9793E;
+}
+
+.scrollStageWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.scaledStage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  pointer-events: auto;
+  will-change: transform;
+}
+
+.previewRow {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  content-visibility: auto;
+  contain-intrinsic-size: 340px;
+}
+
+.collapseBtn {
+  background: #FFFFFF;
+  border: 1px solid #D1C5B4;
+  color: #6E5D4B;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.collapseBtn:hover {
+  background: #F4EFE6;
+  color: #1F1B16;
+  border-color: #A9793E;
+}
+
+.heightToggle {
+  display: flex;
+  background: #F4EFE6;
+  border-radius: 8px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.scrollHintBadge {
+  font-size: 0.72rem;
+  color: #8C8273;
+  background: #F4EFE6;
+  padding: 2px 8px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.previewTile {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #EAE3D3;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.previewTile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 5;
+}
+
+.tileSelected {
+  outline: 2px solid #A9793E;
+  box-shadow: 0 0 0 3px rgba(169, 121, 62, 0.3);
+}
+
+.tileMediaWrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.tileImageInner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.videoPlayBadge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(18, 15, 12, 0.75);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  z-index: 3;
+}
+
+.roundPortalPreview {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #A9793E;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+  background: #1F1B16;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.roundPortalImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.portalBadge {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(18, 15, 12, 0.88);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Badges */
+.tileBadgeGroup {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  z-index: 2;
+}
+
+.tileNumberBadge {
+  background: rgba(31, 27, 22, 0.85);
+  color: #FFFFFF;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.tileFitBottom {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+  display: flex;
+  justify-content: flex-start;
+  z-index: 2;
+}
+
+.fitBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
+}
+
+.fitWell {
+  background: rgba(16, 120, 56, 0.88);
+  color: #FFFFFF;
+}
+
+.fitSlight {
+  background: rgba(204, 128, 0, 0.88);
+  color: #FFFFFF;
+}
+
+.fitPoor {
+  background: rgba(186, 24, 27, 0.88);
+  color: #FFFFFF;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.orientationBadge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.tagPortrait {
+  background: rgba(79, 70, 229, 0.9);
+  color: #FFFFFF;
+}
+
+.tagLandscape {
+  background: rgba(13, 148, 136, 0.9);
+  color: #FFFFFF;
+}
+
+.tagSquare {
+  background: rgba(107, 114, 128, 0.9);
+  color: #FFFFFF;
+}
+
+/* 360 portal indicator */
+.portalIndicator {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.portalPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FAF6EE;
+  border: 1px solid #D5C9B3;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #8A6432;
+}
+
+.portalSpin {
+  animation: spinPortal 8s linear infinite;
+}
+
+@keyframes spinPortal {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Selected item quick editor */
+.selectedDetailBar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background: #FAF8F4;
+  border: 1px solid #EAE3D3;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+}
+
+.detailThumbWrap {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: crosshair;
+  border: 1.5px solid #D5C9B3;
+  flex-shrink: 0;
+}
+
+.detailThumbImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.focalMarker {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  background: #E63946;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.detailMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.detailRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: #1F1B16;
+}
+
+.dimNote {
+  font-size: 0.75rem;
+  color: #8C8273;
+}
+
+.detailControls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.controlLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #4A4237;
+  font-weight: 600;
+}
+
+.selectInput {
+  background: #FFFFFF;
+  border: 1px solid #D5C9B3;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  color: #1F1B16;
+}
+
+.focusTip {
+  font-size: 0.75rem;
+  color: #A9793E;
+  font-weight: 600;
+}
+
+/* Empty state */
+.emptyContainer {
+  background: #FAF8F4;
+  border: 2px dashed #E5DDCB;
+  border-radius: 12px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.emptyIcon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.emptyTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1F1B16;
+  margin: 0 0 0.35rem 0;
+}
+
+.emptyDesc {
+  font-size: 0.85rem;
+  color: #7A6F5D;
+  max-width: 420px;
+  margin: 0 auto;
+}
+

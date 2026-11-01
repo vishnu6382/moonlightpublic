@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Next.js Build Output
+.next/
+out/
+build/
+dist/
+
+# Netlify & Vercel
+.netlify/
+.vercel/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Logs & Debugging
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# OS & Archives
+.DS_Store
+Thumbs.db
+*.zip
+*.tar.gz
+
+# Coverage & Test Artifacts
+coverage/
+*.lcov
+lighthouse-reports/
+
+# Backups & Temporary Test Assets
+backups/
+my-frames/
+.chrome*
+public/photos/temp/
+public/test-screenshots/
+
+# Internal documentation, prompts, task files, and reference assets
+docs/
+references/
+*.md
+**/*.md
+!/README.md

@@ -1,0 +1,574 @@
+/* REGION EXPLORER CONTAINER */
+.regionExplorerWrapper {
+  width: 90%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 14px 0 60px 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .regionExplorerWrapper {
+    width: 94%;
+    padding: 10px 0 70px 0;
+  }
+}
+
+/* 1. Header (12 to 16px under nav) */
+.pageHeader {
+  margin-bottom: 24px;
+}
+
+.pageMainTitle {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-weight: 800;
+  color: var(--charcoal, #1B1B1B);
+  line-height: 1.15;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
+}
+
+.pageSubtitle {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: clamp(0.95rem, 1.25vw, 1.1rem);
+  color: #6E6557;
+  margin: 0;
+  line-height: 1.5;
+  max-width: 720px;
+}
+
+/* 2. Explorer Section (Desktop: Two columns 36% / 64%, Phone: Map on top + Carousel) */
+.explorerSection {
+  margin-bottom: 48px;
+}
+
+.explorerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  .explorerContainer {
+    flex-direction: row;
+    gap: 24px;
+    align-items: flex-start;
+  }
+}
+
+/* Desktop Left Column: 36% */
+.desktopListColumn {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .desktopListColumn {
+    display: block;
+    flex: 0 0 36%;
+    max-width: 36%;
+  }
+}
+
+/* Map Column: 64% desktop, full width phone */
+.mapColumn {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Leaflet Map Wrapper */
+.leafletMapWrapper {
+  position: relative;
+  width: 100%;
+  height: clamp(560px, 78vh, 760px);
+  border-radius: 28px;
+  border: 1px solid #EAE3D3;
+  box-shadow: 0 12px 32px rgba(31, 27, 22, 0.08);
+  overflow: hidden;
+  background: #E8E2D6;
+}
+
+@media (min-width: 1024px) {
+  .leafletMapWrapper {
+    position: sticky;
+    top: 88px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .leafletMapWrapper {
+    height: min(46svh, 380px);
+    min-height: 300px;
+    border-radius: 24px;
+  }
+}
+
+.leafletMapCanvas {
+  width: 100%;
+  height: 100%;
+}
+
+.mapLoadingPlaceholder {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #F4F0E8;
+  border-radius: 28px;
+  color: #6E6557;
+  font-size: 0.95rem;
+}
+
+.mapLoadingSpinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #D8D2C5;
+  border-top-color: #2E2822;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Recenter Button on Leaflet Map */
+.recenterBtn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: #FFFFFF;
+  border: 1.5px solid #D8D2C5;
+  border-radius: 9999px;
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--charcoal, #1B1B1B);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.recenterBtn:hover {
+  background: #F8F5EE;
+  border-color: #A39682;
+  transform: translateY(-1px);
+}
+
+.mapTouchHint {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 9999px;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  color: #554D40;
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .mapTouchHint {
+    display: none;
+  }
+}
+
+/* In-Map Desktop Overlay Card (Bottom-Left, 340px) */
+.desktopMapOverlay {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  width: 340px;
+  z-index: 1000;
+  animation: fadeIn 0.25s ease;
+}
+
+@media (max-width: 1023px) {
+  .desktopMapOverlay {
+    display: none;
+  }
+}
+
+/* Custom Marker Styling (Injected inside Leaflet DivIcon) */
+.resortDivIcon,
+.placeDivIcon,
+.moonDivIcon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.resortMarkerContainer {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resortPulseRing {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid #2E9E6B;
+  animation: resortPulse 2.4s ease-out infinite;
+}
+
+@keyframes resortPulse {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.resortMarkerPin {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid #2E2822;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.resortMarkerLabel {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2E2822;
+  color: #FFFFFF;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
+/* Place Marker */
+.markerTouchTarget {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.markerBubble {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.markerTouchTarget:hover .markerBubble {
+  transform: scale(1.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.markerSelected .markerBubble {
+  transform: scale(1.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.markerHalo {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 2px solid;
+  animation: haloWave 1.8s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes haloWave {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.markerSelectedBadge {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1B1B1B;
+  color: #FFFFFF;
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: nowrap;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+.badgeName {
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.badgeDist {
+  font-size: 0.65rem;
+  color: #D4C76F;
+}
+
+/* Destination marker arrival bounce */
+.markerBounce {
+  animation: markerBounce 0.75s cubic-bezier(0.28, 0.84, 0.42, 1);
+}
+
+@keyframes markerBounce {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(-16px); }
+  50%  { transform: translateY(0); }
+  70%  { transform: translateY(-7px); }
+  100% { transform: translateY(0); }
+}
+
+/* Landmark Photo Marker (optional landmarkImage) */
+.landmarkMarkerBubble {
+  width: 44px;
+  height: 44px;
+  max-width: 56px;
+  max-height: 56px;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.landmarkMarkerImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Travelling Crescent-Moon Marker */
+.travellingMoonIcon {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.travellingMoonGlow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 230, 100, 0.7) 0%, rgba(255, 200, 50, 0) 70%);
+  animation: moonPulse 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes moonPulse {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.4); opacity: 1; }
+}
+
+.travellingMoonDisc {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #2E2822;
+  border: 1.5px solid #FFDE59;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+/* 3. Mobile Bottom Sheet Drawer (max-height: 62svh) */
+.bottomSheetBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: flex-end;
+  animation: fadeIn 0.25s ease;
+}
+
+.bottomSheetContainer {
+  width: 100%;
+  max-height: 62svh;
+  background: #FFFFFF;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-bottom: env(safe-area-inset-bottom, 12px);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.sheetHandleBar {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 6px 0;
+  background: #FFFFFF;
+  cursor: grab;
+}
+
+.sheetHandle {
+  width: 44px;
+  height: 5px;
+  border-radius: 3px;
+  background: #D8D2C5;
+}
+
+.sheetContent {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 16px 16px 16px;
+}
+
+/* 4. "All Places" Section & Premium PlaceCard Grid */
+.allPlacesSection {
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
+.allPlacesHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #ECE7DD;
+  padding-bottom: 12px;
+}
+
+.allPlacesTitle {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  font-weight: 700;
+  color: var(--charcoal, #1B1B1B);
+  margin: 0;
+}
+
+.allPlacesTotalCount {
+  font-size: 0.85rem;
+  color: #7A7264;
+  font-weight: 500;
+}
+
+.districtCardsBlock {
+  margin-bottom: 36px;
+}
+
+.districtBlockHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.districtBlockTitle {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.districtBlockPill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: #F4F0E8;
+  color: #554D40;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* 3 cards per row desktop, 2 per row phone */
+.premiumCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+@media (min-width: 1024px) {
+  .premiumCardsGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+/* On phones, an odd last card spans the full width */
+@media (max-width: 680px) {
+  .premiumCardsGrid > *:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* 7. Page Footer Credits */
+.pageFooterCredits {
+  padding: 24px 0 12px 0;
+  border-top: 1px dashed #EAE3D3;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #7A7264;
+}
+
+.pageFooterCredits a {
+  color: #2E2822;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Pause animations when map is off-screen */
+.mapOffscreen .resortPulseRing {
+  animation-play-state: paused;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .resortPulseRing,
+  .travellingMoonGlow,
+  .markerBounce,
+  .markerHalo {
+    animation: none !important;
+  }
+}

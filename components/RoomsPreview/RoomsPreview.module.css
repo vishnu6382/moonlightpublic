@@ -1,0 +1,297 @@
+.roomsSection {
+  position: relative;
+  width: 100%;
+}
+
+/* Bento Grid matching references/rooms-bento-layout.jpg */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: dense;
+  gap: var(--gap);
+  width: 100%;
+}
+
+/* Title Tile (top-left) */
+.titleTile {
+  grid-column: span 2;
+  grid-row: span 1;
+  min-height: 340px;
+  background-color: var(--tile);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-tile);
+  box-shadow: var(--shadow-soft);
+  padding: clamp(24px, 2.5vw, 36px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.titleTileLabel {
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  color: var(--bronze);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.titleTileHeading {
+  font-family: var(--font-cinzel), serif;
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  color: var(--text);
+  line-height: 1.25;
+  margin-bottom: var(--space-2);
+}
+
+.titleTileText {
+  color: var(--muted);
+  font-size: var(--font-small);
+  line-height: 1.6;
+  margin-bottom: var(--space-4);
+  max-width: 480px;
+}
+
+/* Room Card (3rd style from references/room-card-style.jpg) */
+.roomCard {
+  position: relative;
+  border-radius: var(--radius-tile);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 280px;
+  background-color: #EFECE6;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.roomCard:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(169, 121, 62, 0.35);
+}
+
+/* Span classes */
+.span_wide {
+  grid-column: span 2;
+  grid-row: span 1;
+  min-height: 340px;
+}
+
+.span_tall {
+  grid-column: span 1;
+  grid-row: span 2;
+  min-height: 480px;
+}
+
+.span_large {
+  grid-column: span 2;
+  grid-row: span 2;
+  min-height: 480px;
+}
+
+.span_square {
+  grid-column: span 1;
+  grid-row: span 1;
+  min-height: 350px;
+}
+
+/* Room Image with Zoom on Hover */
+.roomImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.roomCard:hover .roomImage {
+  transform: scale(1.05);
+}
+
+/* Very light transparent gradient at the very bottom only (from rgba(0,0,0,0.35) to transparent, about 35% height) */
+.gradientOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.15) 18%,
+    transparent 35%
+  );
+  pointer-events: none;
+}
+
+/* Room content directly on photo: NO white bar, NO solid background, NO box behind text */
+.cardContent {
+  position: relative;
+  z-index: 2;
+  padding: var(--space-4);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.roomInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.roomName {
+  font-family: var(--font-cinzel), serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.25;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.roomSubLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 3px;
+}
+
+/* Round Arrow Button bottom-right: transparent frosted circle (only circle has background) */
+.arrowButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.roomCard:hover .arrowButton {
+  transform: scale(1.08) translateX(2px);
+  background-color: var(--bronze);
+  border-color: var(--bronze);
+}
+
+.arrowIcon {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+}
+
+/* Bottom CTA Pill */
+.ctaRow {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roomCard:hover .roomImage,
+  .roomCard:hover .arrowButton {
+    transform: none;
+  }
+}
+
+/* Tablet & Mobile Layout: 2-column on tablet & phone */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .bentoGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .titleTile {
+    grid-column: span 2;
+    min-height: auto;
+  }
+
+  .span_wide,
+  .span_tall,
+  .span_large,
+  .span_square {
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 280px;
+  }
+
+  /* Odd leftover room card balances last row */
+  .roomCard:last-child:nth-child(even) {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .bentoGrid {
+    grid-template-columns: repeat(2, 1fr); /* Exactly 2 per row on phones */
+    gap: 10px;
+  }
+
+  .titleTile {
+    grid-column: span 2;
+    padding: var(--space-4);
+  }
+
+  .titleTileHeading {
+    font-size: 1.4rem;
+  }
+
+  .span_wide,
+  .span_tall,
+  .span_large,
+  .span_square {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .roomCard {
+    min-height: 210px;
+  }
+
+  /* Odd leftover room card balances last row */
+  .roomCard:last-child:nth-child(even) {
+    grid-column: span 2;
+  }
+
+  .cardContent {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .roomName {
+    font-size: 0.95rem;
+  }
+
+  .roomSubLabel {
+    font-size: 0.65rem;
+  }
+
+  .arrowButton {
+    width: 28px;
+    height: 28px;
+  }
+
+  .arrowIcon {
+    width: 12px;
+    height: 12px;
+  }
+}

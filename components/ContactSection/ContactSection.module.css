@@ -1,0 +1,368 @@
+.contactWrapper {
+  width: 100%;
+  position: relative;
+}
+
+/* Title across full width (medium size, consistent with Gallery and Rooms page titles) */
+.giantTitle {
+  font-family: var(--font-cinzel), Georgia, serif;
+  font-size: var(--title-page-main, clamp(32px, 3.6vw, 46px));
+  font-weight: var(--weight-page-main, 800);
+  color: var(--text-dark, #120F0C);
+  line-height: 1.1;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+
+/* Two-column layout: Left Map, Right Form */
+.gridTwoCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* Left: Map Box */
+.mapBox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.mapFrameWrapper {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  border-radius: var(--radius-tile);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background-color: var(--tile);
+  box-shadow: var(--shadow-soft);
+}
+
+.mapIframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.mapFallback {
+  padding: var(--space-5);
+  background-color: var(--tile);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-tile);
+}
+
+.mapLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-small);
+  color: var(--bronze);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mapLink:hover {
+  text-decoration: underline;
+}
+
+/* Right: Underline-Only Form */
+.formBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.enquiryForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.formLabel {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.requiredStar {
+  color: #DC2626;
+  font-weight: 700;
+  margin-left: 3px;
+}
+
+.underlineInput,
+.underlineTextarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--border);
+  border-radius: 0;
+  padding: 10px 0;
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.underlineInput:focus,
+.underlineTextarea:focus {
+  border-bottom-color: var(--bronze);
+}
+
+.underlineTextarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.errorMessage {
+  font-size: 0.8rem;
+  color: #DC2626;
+  margin-top: 4px;
+}
+
+/* Hidden Honeypot Field */
+.honeypot {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.submitRow {
+  margin-top: var(--space-2);
+}
+
+.submitButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 36px;
+  background-color: transparent;
+  border: 1.5px solid var(--bronze);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: var(--bronze);
+  color: #FFFFFF;
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Thank You Message */
+.thankYouCard {
+  padding: var(--space-5);
+  background-color: var(--tile);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-tile);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.thankYouIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(169, 121, 62, 0.1);
+  color: var(--bronze);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.thankYouTitle {
+  font-family: var(--font-cinzel), serif;
+  font-size: 1.3rem;
+  color: var(--text);
+}
+
+.thankYouText {
+  color: var(--muted);
+  font-size: var(--font-small);
+  line-height: 1.5;
+}
+
+/* Below Form Big Text Row */
+.bottomInfoRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border);
+}
+
+.phoneStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.phoneLabel {
+  font-size: 0.75rem;
+  font-family: var(--font-cinzel), serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  font-weight: 600;
+}
+
+.bigPhones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-family: var(--font-cinzel), serif;
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+  font-weight: 700;
+}
+
+.phoneLink {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.phoneLink:hover {
+  color: var(--bronze);
+}
+
+.emailBox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.emailLink {
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.emailLink:hover {
+  color: var(--bronze);
+}
+
+/* Small Footer Row with Address, WhatsApp Button, Social Pills */
+.actionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(234, 227, 211, 0.6);
+}
+
+.addressCol {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  font-size: var(--font-small);
+  color: var(--muted);
+}
+
+.actionsRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.whatsappPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background-color: #25D366;
+  color: #FFFFFF;
+  border-radius: var(--radius-pill);
+  font-size: var(--font-small);
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.whatsappPill:hover {
+  opacity: 0.92;
+}
+
+.socialPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: var(--tile);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-small);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.socialPill:hover {
+  border-color: var(--bronze);
+  color: var(--bronze);
+}
+
+/* Mobile full width in order */
+@media (max-width: 900px) {
+  .gridTwoCols {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  .mapFrameWrapper {
+    height: 280px;
+  }
+
+  .bottomInfoRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .actionsRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .actionsRight {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .whatsappPill {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,159 @@
+.explorerListContainer {
+  height: clamp(560px, 78vh, 760px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+/* Thin Custom Scrollbar */
+.explorerListContainer::-webkit-scrollbar {
+  width: 5px;
+}
+
+.explorerListContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.explorerListContainer::-webkit-scrollbar-thumb {
+  background: #D8D2C5;
+  border-radius: 4px;
+}
+
+.explorerListContainer::-webkit-scrollbar-thumb:hover {
+  background: #B5AB99;
+}
+
+.districtGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.districtHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 10px;
+  border-bottom: 1px solid #ECE7DD;
+  margin-bottom: 4px;
+}
+
+.districtHeading {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #554D40;
+  margin: 0;
+}
+
+.districtCountBadge {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.placesList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Single Place Row */
+.placeRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  background: #FFFFFF;
+  border: 1px solid #EAE3D3;
+  border-left: 4px solid transparent;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  user-select: none;
+}
+
+.placeRow:hover {
+  background: #FAF8F4;
+  border-color: #D4C9B5;
+  transform: translateX(2px);
+}
+
+.placeRowSelected {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* Thumbnail 84px rounded */
+.thumbnailContainer {
+  width: 84px;
+  height: 84px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #F0ECE4;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.thumbnailImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumbnailGradient {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Row Details */
+.rowDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.rowName {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--charcoal, #1B1B1B);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rowCategorySub {
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rowPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  background: #F7F5F0;
+  border: 1px solid #ECE7DD;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #3D352E;
+  align-self: flex-start;
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}

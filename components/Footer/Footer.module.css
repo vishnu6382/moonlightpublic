@@ -1,0 +1,242 @@
+/* Outer wrapper spanning full browser width with 5px margins on left and right */
+.footerSection {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 5px 8px 5px; /* 5px space on left and right */
+  background-color: var(--white);
+}
+
+@media (max-width: 600px) {
+  .footerSection {
+    padding: 0 5px 6px 5px;
+  }
+}
+
+/* Big Rounded Card filling 100% of the 5px-padded width */
+.footerCard {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--footer-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card); /* 32px rounded corners */
+  padding: var(--space-6) var(--space-6) 0 var(--space-6);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+@media (max-width: 768px) {
+  .footerCard {
+    padding: var(--space-5) var(--space-4) 0 var(--space-4);
+    border-radius: 24px;
+  }
+}
+
+/* Top Row: Tagline + Big Pill Button */
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid rgba(234, 227, 211, 0.8);
+}
+
+.tagline {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--text);
+  max-width: 540px;
+  line-height: 1.3;
+}
+
+@media (max-width: 768px) {
+  .topRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* Middle Columns (4 columns) */
+.middleGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-5);
+  padding-top: var(--space-5);
+  padding-bottom: var(--space-6);
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 1024px) {
+  .middleGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+@media (max-width: 640px) {
+  .middleGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 16px;
+  }
+
+  .quickLinksCol {
+    grid-column: 1;
+  }
+
+  .contactCol {
+    grid-column: 2;
+  }
+
+  .locationCol {
+    grid-column: 1 / -1;
+  }
+
+  .sayHelloCol {
+    grid-column: 1 / -1;
+  }
+}
+
+.columnTitle {
+  font-family: var(--font-cinzel), serif;
+  font-size: clamp(15px, 1.2vw, 18px);
+  letter-spacing: 0.08em;
+  color: var(--text-dark, #120F0C);
+  margin-bottom: var(--space-3);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.linksList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: 0;
+  margin: 0;
+}
+
+.linkItem a {
+  font-size: var(--font-small);
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.linkItem a:hover {
+  color: var(--bronze);
+}
+
+.addressText {
+  font-size: var(--font-small);
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: var(--space-2);
+}
+
+.mapLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-small);
+  color: #7E511B;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 4px;
+}
+
+.mapLink:hover {
+  text-decoration: underline;
+}
+
+/* Social Pills */
+.socialPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.socialPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-small);
+  color: var(--text);
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.socialPill:hover {
+  background-color: var(--tile);
+  border-color: var(--bronze);
+  color: var(--bronze);
+}
+
+.whatsappPill {
+  background-color: #25D366 !important;
+  color: #FFFFFF !important;
+  border-color: #20BA5A !important;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
+}
+
+.whatsappPill:hover {
+  background-color: #1EBE5D !important;
+  color: #FFFFFF !important;
+  border-color: #1EBE5D !important;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Huge Watermark Cropped at Bottom */
+.watermarkContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-top: var(--space-2);
+  pointer-events: none;
+  user-select: none;
+  text-align: center;
+}
+
+.watermarkText {
+  font-family: var(--font-cinzel), serif;
+  /* Fluid font size so the complete name "Moon Light Resort" fits on one line */
+  font-size: clamp(1.6rem, 7.4vw, 8.2rem);
+  font-weight: 700;
+  color: rgba(169, 121, 62, 0.12);
+  line-height: 0.84;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  transform: translateY(16%);
+  display: block;
+}
+
+/* Copyright Row */
+.copyrightRow {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+  font-size: 0.8rem;
+  color: #595246;
+  border-top: 1px solid rgba(234, 227, 211, 0.6);
+}
+
+@media (max-width: 600px) {
+  .copyrightRow {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+}
