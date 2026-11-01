@@ -4,20 +4,35 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as THREE from 'three';
 import styles from './Pano360Viewer.module.css';
 
-const DEFAULT_PANO = 'https://res.cloudinary.com/dqaroqfr/image/upload/w_2048,c_limit,q_auto:good,f_auto/v1793208541/moonlight_resort/xczyno5zqvn9fqwzmlur.webp';
+// Ultra-sharp 4K default panorama
+const DEFAULT_PANO =
+  'https://res.cloudinary.com/dqaroqfr/image/upload/q_auto:best,w_4096,c_limit,f_auto/v1793208541/moonlight_resort/xczyno5zqvn9fqwzmlur.webp';
 
 /**
- * Optimizes Cloudinary equirectangular panorama URLs:
- * 1. Enforces max 2048px width for instant mobile & desktop GPU decoding.
- * 2. Uses q_auto:good and f_auto to minimize network latency while preserving 2:1 ratio.
+ * Ensures 360 panorama equirectangular photos are served in Ultra HD (4K / 4096px width)
+ * with q_auto:best so textures on mobile and desktop are razor sharp with zero blurriness.
  */
 function getWebGLSafePanoUrl(url) {
   if (!url || typeof url !== 'string') return DEFAULT_PANO;
   let cleanUrl = url.trim();
   if (cleanUrl.startsWith('//')) cleanUrl = 'https:' + cleanUrl;
+
   if (cleanUrl.includes('cloudinary.com') && cleanUrl.includes('/upload/')) {
-    if (!cleanUrl.includes('w_2048') && !cleanUrl.includes('w_2560')) {
-      return cleanUrl.replace('/upload/', '/upload/w_2048,c_limit,q_auto:good,f_auto/');
+    const parts = cleanUrl.split('/upload/');
+    if (parts.length === 2) {
+      let rest = parts[1];
+      // Strip any old low-res transformations (w_2048, w_2560, q_auto:good, etc.)
+      const segments = rest.split('/');
+      const nonTransform = segments.filter(
+        (s) =>
+          !s.includes(',') &&
+          !s.startsWith('w_') &&
+          !s.startsWith('q_') &&
+          !s.startsWith('c_') &&
+          !s.startsWith('f_')
+      );
+      rest = nonTransform.join('/');
+      return `${parts[0]}/upload/q_auto:best,w_4096,c_limit,f_auto/${rest}`;
     }
   }
   return cleanUrl;
@@ -36,14 +51,15 @@ export default function Pano360Viewer({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentSrc, setCurrentSrc] = useState(() => getWebGLSafePanoUrl(src));
 
-  // Auto-hide hint after 3 seconds
+  // Auto-hide hint after 3.5 seconds
   useEffect(() => {
-    const timer = setTimeout(() => setShowHint(false), 3000);
+    const timer = setTimeout(() => setShowHint(false), 3500);
     return () => clearTimeout(timer);
   }, []);
 
   // Lock body scroll and Esc key listener
   useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
     const handleKeyDown = (e) => {
@@ -54,7 +70,7 @@ export default function Pano360Viewer({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = originalOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [onClose]);
@@ -77,7 +93,7 @@ export default function Pano360Viewer({
     }
   };
 
-  // Initialize Three.js sphere projection immediately
+  // Initialize Three.js sphere projection with ultra-smooth mobile swipe and damping
   useEffect(() => {
     let activeSrc = currentSrc;
     if (!activeSrc) activeSrc = DEFAULT_PANO;
@@ -91,15 +107,22 @@ export default function Pano360Viewer({
     let material = null;
     let texture = null;
 
+    // Camera angles & smooth inertia interpolation
     let lon = 0;
     let lat = 0;
-    let phi = 0;
-    let theta = 0;
+    let targetLon = 0;
+    let targetLat = 0;
+    let velocityLon = 0;
+    let velocityLat = 0;
     let isUserInteracting = false;
-    let onPointerDownPointerX = 0;
-    let onPointerDownPointerY = 0;
-    let onPointerDownLon = 0;
-    let onPointerDownLat = 0;
+
+    let lastPointerX = 0;
+    let lastPointerY = 0;
+
+    // Multi-touch tracking for pinch zoom
+    const activePointers = new Map();
+    let initialPinchDistance = 0;
+    let initialFov = 75;
 
     setLoading(true);
     setError('');
@@ -111,17 +134,28 @@ export default function Pano360Viewer({
       const width = container.clientWidth || window.innerWidth || 800;
       const height = container.clientHeight || window.innerHeight || 600;
 
+      // Camera: 75 FOV default
       camera = new THREE.PerspectiveCamera(75, width / height, 1, 1100);
       camera.target = new THREE.Vector3(0, 0, 0);
 
       scene = new THREE.Scene();
 
-      geometry = new THREE.SphereGeometry(500, 60, 40);
+      // Smooth sphere geometry (64 segments for circular fidelity)
+      geometry = new THREE.SphereGeometry(500, 64, 48);
       geometry.scale(-1, 1, 1); // Invert sphere to look from inside
 
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: false,
+        powerPreference: 'high-performance',
+      });
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2.5));
       renderer.setSize(width, height);
+      renderer.domElement.style.touchAction = 'none';
+      renderer.domElement.style.userSelect = 'none';
+      renderer.domElement.style.webkitUserSelect = 'none';
+
       container.innerHTML = '';
       container.appendChild(renderer.domElement);
 
@@ -131,6 +165,15 @@ export default function Pano360Viewer({
       const loadSuccess = (loadedTexture) => {
         if (destroyed) return;
         texture = loadedTexture;
+        texture.colorSpace = THREE.SRGBColorSpace;
+        texture.minFilter = THREE.LinearFilter;
+        texture.magFilter = THREE.LinearFilter;
+        texture.generateMipmaps = false;
+
+        if (renderer && renderer.capabilities) {
+          texture.anisotropy = renderer.capabilities.getMaxAnisotropy?.() || 1;
+        }
+
         material = new THREE.MeshBasicMaterial({ map: texture });
         const mesh = new THREE.Mesh(geometry, material);
         scene.add(mesh);
@@ -158,38 +201,93 @@ export default function Pano360Viewer({
         }
       };
 
-      // Load texture immediately with zero waterfall delay
+      // Load texture with zero delay
       loader.load(activeSrc, loadSuccess, undefined, loadFail);
 
-      // Interaction handlers
+      // Helper to compute pinch distance
+      const getPinchDistance = () => {
+        if (activePointers.size < 2) return 0;
+        const pts = Array.from(activePointers.values());
+        const dx = pts[0].x - pts[1].x;
+        const dy = pts[0].y - pts[1].y;
+        return Math.hypot(dx, dy);
+      };
+
+      // Pointer event handlers with smooth dragging and gesture handling
       const onPointerDown = (event) => {
-        isUserInteracting = true;
-        try {
-          container.setPointerCapture?.(event.pointerId);
-        } catch (_) {}
-        onPointerDownPointerX = event.clientX;
-        onPointerDownPointerY = event.clientY;
-        onPointerDownLon = lon;
-        onPointerDownLat = lat;
+        activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+
+        if (activePointers.size === 1) {
+          isUserInteracting = true;
+          velocityLon = 0;
+          velocityLat = 0;
+          lastPointerX = event.clientX;
+          lastPointerY = event.clientY;
+
+          try {
+            container.setPointerCapture?.(event.pointerId);
+          } catch (_) {}
+        } else if (activePointers.size === 2) {
+          // Begin pinch to zoom
+          initialPinchDistance = getPinchDistance();
+          initialFov = camera.fov;
+        }
       };
 
       const onPointerMove = (event) => {
-        if (!isUserInteracting) return;
-        lon = (onPointerDownPointerX - event.clientX) * 0.15 + onPointerDownLon;
-        lat = (event.clientY - onPointerDownPointerY) * 0.15 + onPointerDownLat;
+        if (!activePointers.has(event.pointerId)) return;
+        activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+
+        if (activePointers.size === 1 && isUserInteracting) {
+          const deltaX = event.clientX - lastPointerX;
+          const deltaY = event.clientY - lastPointerY;
+
+          lastPointerX = event.clientX;
+          lastPointerY = event.clientY;
+
+          // Responsive sensitivity: feels natural and light on mobile touch screens
+          const sensitivity = 0.18;
+          targetLon -= deltaX * sensitivity;
+          targetLat += deltaY * sensitivity;
+
+          // Compute instantaneous velocity for gliding release
+          velocityLon = deltaX * sensitivity;
+          velocityLat = deltaY * sensitivity;
+        } else if (activePointers.size === 2 && initialPinchDistance > 0) {
+          // Pinch-to-zoom calculation
+          const currentDistance = getPinchDistance();
+          if (currentDistance > 0) {
+            const scale = initialPinchDistance / currentDistance;
+            const newFov = Math.max(35, Math.min(95, initialFov * scale));
+            camera.fov = newFov;
+            camera.updateProjectionMatrix();
+          }
+        }
       };
 
       const onPointerUp = (event) => {
-        isUserInteracting = false;
+        activePointers.delete(event.pointerId);
+
         try {
           container.releasePointerCapture?.(event.pointerId);
         } catch (_) {}
+
+        if (activePointers.size === 0) {
+          isUserInteracting = false;
+        } else if (activePointers.size === 1) {
+          // Transitioned from pinch zoom back to 1 finger
+          const remaining = Array.from(activePointers.values())[0];
+          lastPointerX = remaining.x;
+          lastPointerY = remaining.y;
+          velocityLon = 0;
+          velocityLat = 0;
+        }
       };
 
       const onWheel = (event) => {
         event.preventDefault();
         const fov = camera.fov + event.deltaY * 0.05;
-        camera.fov = Math.max(30, Math.min(95, fov));
+        camera.fov = Math.max(35, Math.min(95, fov));
         camera.updateProjectionMatrix();
       };
 
@@ -202,26 +300,42 @@ export default function Pano360Viewer({
         renderer.setSize(w, h);
       };
 
-      container.addEventListener('pointerdown', onPointerDown);
-      window.addEventListener('pointermove', onPointerMove);
+      // Bind interaction listeners directly on container element
+      container.addEventListener('pointerdown', onPointerDown, { passive: false });
+      window.addEventListener('pointermove', onPointerMove, { passive: false });
       window.addEventListener('pointerup', onPointerUp);
       window.addEventListener('pointercancel', onPointerUp);
       container.addEventListener('wheel', onWheel, { passive: false });
       window.addEventListener('resize', onResize);
 
-      // Animation loop
+      // Animation loop with smooth inertia damping (lerp)
       const animate = () => {
         if (destroyed) return;
         animId = requestAnimationFrame(animate);
 
-        // Slow ambient rotation when idle
+        // Apply friction inertia gliding when finger/mouse is released
         if (!isUserInteracting) {
-          lon += 0.04;
+          if (Math.abs(velocityLon) > 0.01 || Math.abs(velocityLat) > 0.01) {
+            targetLon -= velocityLon;
+            targetLat += velocityLat;
+            velocityLon *= 0.92; // silky smooth friction deceleration
+            velocityLat *= 0.92;
+          } else {
+            // Calm slow ambient rotation when completely idle
+            targetLon += 0.035;
+          }
         }
 
+        // Smooth damping interpolation (lerp)
+        lon += (targetLon - lon) * 0.18;
+        lat += (targetLat - lat) * 0.18;
+
+        // Limit vertical pitch to avoid polar singularities
         lat = Math.max(-85, Math.min(85, lat));
-        phi = THREE.MathUtils.degToRad(90 - lat);
-        theta = THREE.MathUtils.degToRad(lon);
+        targetLat = Math.max(-85, Math.min(85, targetLat));
+
+        const phi = THREE.MathUtils.degToRad(90 - lat);
+        const theta = THREE.MathUtils.degToRad(lon);
 
         const targetX = 500 * Math.sin(phi) * Math.cos(theta);
         const targetY = 500 * Math.cos(phi);
@@ -261,11 +375,19 @@ export default function Pano360Viewer({
   }, [currentSrc]);
 
   return (
-    <div className={styles.backdrop} onClick={onClose} role="dialog" aria-modal="true" aria-label="360 Virtual Tour">
+    <div
+      className={styles.backdrop}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="360 Virtual Tour"
+      data-lenis-prevent="true"
+    >
       <div
         ref={panelRef}
         className={styles.viewerPanel}
         onClick={(e) => e.stopPropagation()}
+        data-lenis-prevent="true"
       >
         {/* Close Button */}
         <button
@@ -299,13 +421,13 @@ export default function Pano360Viewer({
         </button>
 
         {/* 360 Canvas Container */}
-        <div ref={containerRef} className={styles.canvasContainer} />
+        <div ref={containerRef} className={styles.canvasContainer} data-lenis-prevent="true" />
 
         {/* Loading Spinner */}
         {loading && (
           <div className={styles.spinnerWrapper}>
             <div className={styles.spinner} />
-            <span className={styles.spinnerText}>Loading 360° Panorama...</span>
+            <span className={styles.spinnerText}>Loading 360° Ultra HD View...</span>
           </div>
         )}
 
@@ -332,14 +454,14 @@ export default function Pano360Viewer({
         {/* Hint banner */}
         {!loading && !error && showHint && (
           <div className={styles.hintBadge}>
-            <span>&#8644; Drag to look around</span>
+            <span>&#8644; Drag to look around &bull; Pinch to zoom</span>
           </div>
         )}
 
         {/* Room Name Badge Bottom-Left */}
         <div className={styles.roomBadge}>
           <span className={styles.badgeIndicator} />
-          <span>{roomName} &bull; 360&deg; View</span>
+          <span>{roomName} &bull; 360&deg; Ultra HD View</span>
         </div>
       </div>
     </div>
