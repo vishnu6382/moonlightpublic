@@ -30,6 +30,31 @@
   gap: var(--gap);
 }
 
+/* Clickable button wrapper for all interactive showcase media tiles */
+.clickableTile {
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  font: inherit;
+  display: block;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
+}
+
+.clickableTile:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.clickableTile:focus-visible {
+  outline: 2px solid var(--gold, #B89047);
+  outline-offset: 3px;
+  z-index: 5;
+}
+
 /* Center Portal Block */
 .centerPortalBlock {
   position: relative;

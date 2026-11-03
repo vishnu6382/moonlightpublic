@@ -21,6 +21,32 @@ const SiteSettingsSchema = new mongoose.Schema(
     googleMapsUrl: { type: String, default: 'https://maps.google.com' },
     checkInTime: { type: String, default: '13:00' },
     checkOutTime: { type: String, default: '11:00' },
+    festive: {
+      enabled: { type: Boolean, default: true },
+      festivalType: { type: String, default: 'diwali' },
+      festivalTitle: { type: String, default: 'Diwali Celebration' },
+      startDate: { type: String, default: '' },
+      endDate: { type: String, default: '' },
+      banner: {
+        enabled: { type: Boolean, default: true },
+        text: {
+          type: String,
+          default: '✨ Diwali Special Offer: Book your stay today and get access to our exclusive festive celebration. Limited slots!',
+        },
+        ctaText: { type: String, default: 'Book Now' },
+        ctaLink: { type: String, default: '/contact' },
+        bgColor: { type: String, default: '#58111A' },
+        textColor: { type: String, default: '#FFFFFF' },
+        accentColor: { type: String, default: '#FCD34D' },
+      },
+      decorations: {
+        showLights: { type: Boolean, default: true },
+        showFloatingDiya: { type: Boolean, default: true },
+        diyaText: { type: String, default: 'May Your Days Glow' },
+        enableFireworks: { type: Boolean, default: true },
+        fireworksOnLoad: { type: Boolean, default: true },
+      },
+    },
   },
   { timestamps: true }
 );

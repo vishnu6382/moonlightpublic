@@ -6,9 +6,10 @@ import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/content/site';
 import { buildWhatsAppLink } from '@/lib/whatsapp';
 import { fxConfig } from '@/lib/fxConfig';
+import FestiveLights from '@/components/Festive/FestiveLights';
 import styles from './Nav.module.css';
 
-export default function Nav({ logo: initialLogo }) {
+export default function Nav({ logo: initialLogo, showFestiveLights = false }) {
   const [logo, setLogo] = useState(initialLogo || null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isOverIntro, setIsOverIntro] = useState(false);
@@ -219,7 +220,9 @@ export default function Nav({ logo: initialLogo }) {
           isOverIntro && !isMenuOpen && !isFloating ? styles.navOverIntro : ''
         } ${isMenuOpen ? styles.headerMenuOpen : ''} ${
           isFloating ? styles.floatingPill : ''
-        } ${isHidden && !isMenuOpen ? styles.navHidden : ''}`}
+        } ${isHidden && !isMenuOpen ? styles.navHidden : ''} ${
+          showFestiveLights ? styles.headerWithFestiveLights : ''
+        }`}
       >
         <a href="#main-content" className={styles.skipToContent}>
           Skip to main content

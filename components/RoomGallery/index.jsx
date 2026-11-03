@@ -5,6 +5,7 @@ import Image from 'next/image';
 import MoonPortal from '@/components/MoonPortal';
 import { computeBentoLayout } from '@/components/GalleryClient/bentoEngine';
 import { getOptimizedVideoUrl, getOptimizedPosterUrl } from '@/lib/videoOptimizer';
+import { cleanMediaCaption } from '@/lib/media';
 import styles from './RoomGallery.module.css';
 
 /**
@@ -125,9 +126,9 @@ function GalleryMediaItem({ item, onClick, priority = false, labelPosition = '' 
         />
       )}
 
-      {(item.caption || item.title) && (
+      {cleanMediaCaption(item.caption || item.title) && (
         <span className={`${styles.captionTag} ${labelPosClass}`}>
-          {item.caption || item.title}
+          {cleanMediaCaption(item.caption || item.title)}
         </span>
       )}
       <div className={styles.tileHoverOverlay} aria-hidden="true" />

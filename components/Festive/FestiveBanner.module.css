@@ -1,0 +1,199 @@
+.bannerWrapper {
+  position: relative;
+  width: 100%;
+  z-index: 105;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px;
+  font-family: var(--font-poppins), sans-serif;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+  gap: 16px;
+  overflow: hidden;
+  height: 44px;
+  box-sizing: border-box;
+}
+
+/* Fixed left badge */
+.badgeWrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  flex-shrink: 0;
+  backdrop-filter: blur(8px);
+}
+
+.sparkleIcon {
+  font-size: 0.82rem;
+  animation: pulseGlow 1.8s infinite ease-in-out alternate;
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(0.95);
+    filter: drop-shadow(0 0 2px #FFD700);
+  }
+  100% {
+    transform: scale(1.25);
+    filter: drop-shadow(0 0 8px #FFF);
+  }
+}
+
+.badgeText {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Center Smooth Marquee Ticker Viewport */
+.tickerViewport {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  mask-image: linear-gradient(to right, transparent, black 28px, black calc(100% - 28px), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 28px, black calc(100% - 28px), transparent);
+  cursor: default;
+}
+
+.tickerTrack {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: marqueeSmooth 32s linear infinite;
+  will-change: transform;
+}
+
+.tickerTrack:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeSmooth {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.tickerSegment {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  padding-right: 20px;
+}
+
+.tickerText {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.01em;
+  display: inline-block;
+}
+
+.tickerDivider {
+  color: #FCD34D;
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+/* Right Action Group */
+.actionGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+
+.ctaBtn:hover {
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.38);
+}
+
+.ctaArrow {
+  font-size: 0.88rem;
+  transition: transform 0.2s ease;
+}
+
+.ctaBtn:hover .ctaArrow {
+  transform: translateX(2px);
+}
+
+.closeBtn {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  opacity: 0.85;
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+  padding: 0;
+}
+
+.closeBtn:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.45);
+  transform: scale(1.1);
+}
+
+/* Responsive Rules for Small Devices */
+@media (max-width: 768px) {
+  .bannerWrapper {
+    height: 40px;
+    padding: 4px 10px;
+    gap: 8px;
+  }
+
+  .badgeWrapper {
+    display: none; /* Hide badge on mobile to give full room to scrolling text & CTA */
+  }
+
+  .tickerText {
+    font-size: 0.78rem;
+  }
+
+  .ctaBtn {
+    padding: 3px 10px;
+    font-size: 0.68rem;
+  }
+
+  .closeBtn {
+    width: 22px;
+    height: 22px;
+  }
+}

@@ -58,6 +58,7 @@ export default function AdminShell({ children }) {
     { label: 'Gallery', href: '/admin/gallery' },
     { label: 'Nearby Areas', href: '/admin/nearby' },
     { label: 'Media Library', href: '/admin/media-library' },
+    { label: 'Settings & Festive', href: '/admin/settings' },
   ];
 
   return (

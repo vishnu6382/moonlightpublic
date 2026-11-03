@@ -6,11 +6,17 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import ContactSection from '@/components/ContactSection';
 import MobileBottomBar from '@/components/MobileBottomBar';
+import FestiveManager from '@/components/Festive/FestiveManager';
 import { contactData } from '@/content/contact';
+import { getActiveFestiveConfig, isFestiveActive } from '@/lib/festiveHelper';
 
-export default function PublicShell({ children, initialLogo }) {
+export default function PublicShell({ children, initialLogo, festiveSettings }) {
   const pathname = usePathname();
   const isAdmin = pathname && pathname.startsWith('/admin');
+
+  const activeFestive = getActiveFestiveConfig(festiveSettings);
+  const isFestive = isFestiveActive(activeFestive);
+  const showLights = isFestive && activeFestive.decorations?.showLights !== false;
 
   useEffect(() => {
     if (pathname !== '/') {
@@ -30,7 +36,8 @@ export default function PublicShell({ children, initialLogo }) {
 
   return (
     <>
-      <Nav logo={initialLogo} />
+      <FestiveManager festive={activeFestive} />
+      <Nav logo={initialLogo} showFestiveLights={showLights} />
       <main id="main-content">{children}</main>
       <ContactSection data={contactData} />
       <Footer />

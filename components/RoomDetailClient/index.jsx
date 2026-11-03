@@ -88,15 +88,29 @@ export default function RoomDetailClient({ room, otherRooms = [] }) {
       {/* 1. HERO SECTION: Full width (100% minus 12px margin), 85svh height, radius 40px */}
       <section className={styles.heroSection} aria-label={`${room.name} Hero`}>
         {room.mainImage || room.image || room.photos?.[0]?.src ? (
-          <Image
-            src={room.mainImage || room.image || room.photos?.[0]?.src}
-            alt={room.name}
-            fill
-            priority
-            quality={95}
-            sizes="100vw"
-            className={styles.heroImage}
-          />
+          <div
+            onClick={() => allMedia.length > 0 && setLightboxIndex(0)}
+            style={{ cursor: allMedia.length > 0 ? 'pointer' : 'default', position: 'absolute', inset: 0 }}
+            role="button"
+            tabIndex={0}
+            aria-label={`View full photos for ${room.name}`}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                if (allMedia.length > 0) setLightboxIndex(0);
+              }
+            }}
+          >
+            <Image
+              src={room.mainImage || room.image || room.photos?.[0]?.src}
+              alt={room.name}
+              fill
+              priority
+              quality={95}
+              sizes="100vw"
+              className={styles.heroImage}
+            />
+          </div>
         ) : (
           <div className={styles.heroPlaceholderWrap}>
             <img src="/brand/moonlight-mark.png" alt="Moon Light Resort" className={styles.heroPlaceholderLogo} />
@@ -354,7 +368,25 @@ export default function RoomDetailClient({ room, otherRooms = [] }) {
 
             {/* Right Column: Tall rounded photo filling height */}
             <div className={styles.aboutRightCol}>
-              <div className={styles.aboutTallPhotoWrap}>
+              <div
+                className={styles.aboutTallPhotoWrap}
+                onClick={() => {
+                  if (allMedia.length > 0) {
+                    const idx = allMedia.length > 1 ? 1 : 0;
+                    setLightboxIndex(idx);
+                  }
+                }}
+                style={{ cursor: allMedia.length > 0 ? 'pointer' : 'default' }}
+                role="button"
+                tabIndex={0}
+                aria-label={`View photo of ${room.name}`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    if (allMedia.length > 0) setLightboxIndex(allMedia.length > 1 ? 1 : 0);
+                  }
+                }}
+              >
                 {room.photos?.[1]?.src || room.photos?.[0]?.src || room.mainImage ? (
                   <Image
                     src={room.photos?.[1]?.src || room.photos?.[0]?.src || room.mainImage}

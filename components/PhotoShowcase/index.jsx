@@ -8,7 +8,9 @@ import Section from '@/components/Section';
 import FadeUp from '@/components/FadeUp';
 import SectionHeader from '@/components/SectionHeader';
 import MoonPortal from '@/components/MoonPortal';
+import MediaLightbox from '@/components/MediaLightbox';
 import { getOptimizedVideoUrl, getOptimizedPosterUrl, getOptimizedImageUrl } from '@/lib/videoOptimizer';
+import { isHumanReadableTitle } from '@/lib/media';
 import styles from './PhotoShowcase.module.css';
 
 const Pano360Viewer = dynamic(() => import('@/components/Pano360Viewer'), {
@@ -115,6 +117,7 @@ export default function PhotoShowcase({
   subtitle = 'Villas, pool and open spaces at Moon Light Resort.',
 }) {
   const [is360Open, setIs360Open] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   // Strictly 10 to 15 items on Home page (12 items total)
   const MAX_HOME_GALLERY_ITEMS = 12;
@@ -144,6 +147,14 @@ export default function PhotoShowcase({
 
     return base.slice(0, MAX_HOME_GALLERY_ITEMS);
   }, [items, allMediaItems]);
+
+  const handleOpenLightbox = (targetItem) => {
+    if (!targetItem) return;
+    const idx = allMedia.findIndex(
+      (it) => it === targetItem || (targetItem.id && it.id === targetItem.id) || it.src === targetItem.src
+    );
+    setLightboxIndex(idx >= 0 ? idx : 0);
+  };
 
   if (!portalItem && allMedia.length === 0) {
     return null;
@@ -197,12 +208,18 @@ export default function PhotoShowcase({
             {leftColumnItems.length > 0 && (
               <div className={styles.sideColumn}>
                 {leftColumnItems.map((item, idx) => (
-                  <div key={item.id || `left-${idx}`} className={styles.sideTile}>
+                  <button
+                    key={item.id || `left-${idx}`}
+                    type="button"
+                    onClick={() => handleOpenLightbox(item)}
+                    className={`${styles.sideTile} ${styles.clickableTile}`}
+                    aria-label={item.caption || item.alt || 'View photo'}
+                  >
                     <RenderMediaItem item={item} />
-                    {item.caption && (
+                    {isHumanReadableTitle(item.caption) && (
                       <span className={styles.tileCaption}>{item.caption}</span>
                     )}
-                  </div>
+                  </button>
                 ))}
               </div>
             )}
@@ -210,12 +227,17 @@ export default function PhotoShowcase({
             {/* Center Portal Block */}
             <div className={styles.centerPortalBlock}>
               {/* Hero Tile: Always a Photo */}
-              <div className={styles.heroTile}>
+              <button
+                type="button"
+                onClick={() => handleOpenLightbox(heroItem)}
+                className={`${styles.heroTile} ${styles.clickableTile}`}
+                aria-label={heroItem?.caption || heroItem?.alt || 'View resort photo'}
+              >
                 <RenderMediaItem item={heroItem} priority={false} />
-                {heroItem?.caption && (
+                {isHumanReadableTitle(heroItem?.caption) && (
                   <span className={styles.tileCaption}>{heroItem.caption}</span>
                 )}
-              </div>
+              </button>
 
               {/* Crossroads Portal Circle with Bold Readable Text on Clean White Ring */}
               <div className={styles.portalAnchor}>
@@ -231,31 +253,37 @@ export default function PhotoShowcase({
 
               {/* Connector Tiles Row */}
               <div className={styles.connectorRow}>
-                <div className={styles.connectorLeft}>
-                  {connectorLeftItem ? (
-                    <>
-                      <RenderMediaItem item={connectorLeftItem} />
-                      {connectorLeftItem.caption && (
-                        <span className={styles.tileCaption}>{connectorLeftItem.caption}</span>
-                      )}
-                    </>
-                  ) : (
-                    <div style={{ width: '100%', height: '100%', backgroundColor: '#EFECE6' }} />
-                  )}
-                </div>
+                {connectorLeftItem ? (
+                  <button
+                    type="button"
+                    onClick={() => handleOpenLightbox(connectorLeftItem)}
+                    className={`${styles.connectorLeft} ${styles.clickableTile}`}
+                    aria-label={connectorLeftItem?.caption || connectorLeftItem?.alt || 'View photo'}
+                  >
+                    <RenderMediaItem item={connectorLeftItem} />
+                    {isHumanReadableTitle(connectorLeftItem.caption) && (
+                      <span className={styles.tileCaption}>{connectorLeftItem.caption}</span>
+                    )}
+                  </button>
+                ) : (
+                  <div className={styles.connectorLeft} style={{ width: '100%', height: '100%', backgroundColor: '#EFECE6' }} />
+                )}
 
-                <div className={styles.connectorRight}>
-                  {connectorRightItem ? (
-                    <>
-                      <RenderMediaItem item={connectorRightItem} />
-                      {connectorRightItem.caption && (
-                        <span className={styles.tileCaption}>{connectorRightItem.caption}</span>
-                      )}
-                    </>
-                  ) : (
-                    <div style={{ width: '100%', height: '100%', backgroundColor: '#EFECE6' }} />
-                  )}
-                </div>
+                {connectorRightItem ? (
+                  <button
+                    type="button"
+                    onClick={() => handleOpenLightbox(connectorRightItem)}
+                    className={`${styles.connectorRight} ${styles.clickableTile}`}
+                    aria-label={connectorRightItem?.caption || connectorRightItem?.alt || 'View photo'}
+                  >
+                    <RenderMediaItem item={connectorRightItem} />
+                    {isHumanReadableTitle(connectorRightItem.caption) && (
+                      <span className={styles.tileCaption}>{connectorRightItem.caption}</span>
+                    )}
+                  </button>
+                ) : (
+                  <div className={styles.connectorRight} style={{ width: '100%', height: '100%', backgroundColor: '#EFECE6' }} />
+                )}
               </div>
             </div>
 
@@ -263,12 +291,18 @@ export default function PhotoShowcase({
             {rightColumnItems.length > 0 && (
               <div className={styles.sideColumn}>
                 {rightColumnItems.map((item, idx) => (
-                  <div key={item.id || `right-${idx}`} className={styles.sideTile}>
+                  <button
+                    key={item.id || `right-${idx}`}
+                    type="button"
+                    onClick={() => handleOpenLightbox(item)}
+                    className={`${styles.sideTile} ${styles.clickableTile}`}
+                    aria-label={item.caption || item.alt || 'View photo'}
+                  >
                     <RenderMediaItem item={item} />
-                    {item.caption && (
+                    {isHumanReadableTitle(item.caption) && (
                       <span className={styles.tileCaption}>{item.caption}</span>
                     )}
-                  </div>
+                  </button>
                 ))}
               </div>
             )}
@@ -278,12 +312,18 @@ export default function PhotoShowcase({
           {extraItems.length > 0 && (
             <div className={styles.extraBentoGrid}>
               {extraItems.map((item, idx) => (
-                <div key={item.id || `extra-${idx}`} className={styles.extraTile}>
+                <button
+                  key={item.id || `extra-${idx}`}
+                  type="button"
+                  onClick={() => handleOpenLightbox(item)}
+                  className={`${styles.extraTile} ${styles.clickableTile}`}
+                  aria-label={item.caption || item.alt || 'View photo'}
+                >
                   <RenderMediaItem item={item} />
-                  {item.caption && (
+                  {isHumanReadableTitle(item.caption) && (
                     <span className={styles.tileCaption}>{item.caption}</span>
                   )}
-                </div>
+                </button>
               ))}
             </div>
           )}
@@ -315,6 +355,15 @@ export default function PhotoShowcase({
           src={portalItem.panoSrc || portalItem.src}
           roomName={portalItem.roomName || 'Moon Light Resort 360° Virtual Tour'}
           onClose={() => setIs360Open(false)}
+        />
+      )}
+
+      {/* Media Lightbox */}
+      {lightboxIndex !== null && allMedia.length > 0 && (
+        <MediaLightbox
+          media={allMedia}
+          initialIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
         />
       )}
     </Section>

@@ -1,0 +1,14 @@
+.festiveTopContainer {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 105;
+  pointer-events: none;
+  transition: transform 0.3s ease;
+}
+
+/* Ensure banner inside is interactive */
+.festiveTopContainer :global([role="banner"]) {
+  pointer-events: auto !important;
+}

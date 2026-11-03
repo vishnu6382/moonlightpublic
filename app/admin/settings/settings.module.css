@@ -105,3 +105,165 @@
 .primaryBtn:hover {
   background: #8C622D;
 }
+
+/* Festive Mode Admin Section */
+.festiveCard {
+  background: #FFFFFF;
+  border: 2px solid #E6B86A;
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 16px rgba(184, 134, 11, 0.08);
+}
+
+.festiveHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #F3EDE0;
+}
+
+.festiveTitleWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.festiveTitle {
+  font-family: var(--font-cinzel, serif);
+  font-size: 1.25rem;
+  color: #120F0C;
+  margin: 0;
+  font-weight: 700;
+}
+
+.festiveSubtitle {
+  font-size: 0.82rem;
+  color: #6B7280;
+  margin: 4px 0 0 0;
+}
+
+.presetBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.presetBtn {
+  background: #F8F5EE;
+  border: 1px solid #D5C9B3;
+  color: #4A3A23;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.presetBtn:hover {
+  background: #EAE3D3;
+  border-color: #B8860B;
+}
+
+.presetBtnActive {
+  background: #A9793E;
+  color: #FFFFFF;
+  border-color: #A9793E;
+  box-shadow: 0 2px 6px rgba(169, 121, 62, 0.3);
+}
+
+.switchRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #FAF7F0;
+  border: 1px solid #EDE6D6;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
+.switchLabel {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #2D241E;
+  flex: 1;
+}
+
+.switchSubtext {
+  font-size: 0.75rem;
+  color: #786C5E;
+  display: block;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.colorPickerRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.colorInput {
+  width: 44px;
+  height: 38px;
+  padding: 2px;
+  border: 1px solid #D5C9B3;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.colorSwatches {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.swatchBtn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 0 1px #D5C9B3;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.swatchBtn:hover {
+  transform: scale(1.15);
+}
+
+.bannerPreviewBox {
+  border: 1px dashed #D5C9B3;
+  border-radius: 8px;
+  padding: 14px;
+  margin: 16px 0;
+  background: #FAFAFA;
+}
+
+.testCrackersBtn {
+  background: #FDF2E9;
+  color: #C05621;
+  border: 1px solid #FBD38D;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.testCrackersBtn:hover {
+  background: #FEEBC8;
+  transform: scale(1.04);
+}

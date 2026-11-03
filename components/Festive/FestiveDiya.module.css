@@ -1,0 +1,191 @@
+.diyaWidgetWrapper {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 999999 !important;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  cursor: pointer;
+  user-select: none;
+  animation: floatSubtle 3.6s ease-in-out infinite alternate;
+  filter: drop-shadow(0 10px 28px rgba(0, 0, 0, 0.22));
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
+  pointer-events: auto !important;
+}
+
+.diyaWidgetWrapper:hover {
+  transform: translateY(-4px) scale(1.04);
+}
+
+@keyframes floatSubtle {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Circular Lamp Avatar */
+.diyaCircle {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #422006, #1C0A00);
+  border: 2px solid #FCD34D;
+  box-shadow: 0 0 20px rgba(255, 174, 66, 0.85), inset 0 0 10px rgba(255, 193, 7, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  overflow: visible;
+}
+
+.diyaGlowAura {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 179, 0, 0.4) 0%, transparent 70%);
+  animation: pulseAura 2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes pulseAura {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0.9;
+  }
+}
+
+/* Diya Clay Base SVG */
+.diyaSvg {
+  width: 44px;
+  height: 44px;
+  overflow: visible;
+}
+
+/* Realistic burning animated flame */
+.flame {
+  transform-origin: 22px 20px;
+  animation: flameFlicker 1.2s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 8px #FF6D00) drop-shadow(0 0 16px #FFD700);
+}
+
+@keyframes flameFlicker {
+  0% {
+    transform: scale(0.94) rotate(-3deg);
+    opacity: 0.9;
+  }
+  25% {
+    transform: scale(1.1) rotate(3deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.92) rotate(-1deg);
+    opacity: 0.88;
+  }
+  75% {
+    transform: scale(1.14) rotate(2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.96;
+  }
+}
+
+/* Frosted Capsule Pill */
+.diyaPill {
+  position: relative;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(245, 158, 11, 0.55);
+  border-left: none;
+  padding: 8px 16px 8px 18px;
+  margin-left: -12px;
+  border-radius: 0 9999px 9999px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.sparkleIcon {
+  font-size: 0.85rem;
+  color: #D97706;
+  animation: pulseSparkle 1.8s infinite ease-in-out;
+}
+
+@keyframes pulseSparkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.25) rotate(15deg);
+  }
+}
+
+.diyaText {
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #5D3710;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.burstBadge {
+  background: linear-gradient(135deg, #FF6D00, #D50000);
+  color: #FFFFFF;
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 6px rgba(213, 0, 0, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Mobile Screens (above mobile action bottom bar) */
+@media (max-width: 768px) {
+  .diyaWidgetWrapper {
+    bottom: 92px;
+    left: 14px;
+  }
+
+  .diyaCircle {
+    width: 48px;
+    height: 48px;
+  }
+
+  .diyaSvg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .diyaPill {
+    padding: 6px 12px 6px 14px;
+    margin-left: -10px;
+  }
+
+  .diyaText {
+    font-size: 0.68rem;
+  }
+
+  .burstBadge {
+    font-size: 0.62rem;
+    padding: 2px 6px;
+  }
+}

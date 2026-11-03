@@ -10,6 +10,7 @@ import MoonPortal from '@/components/MoonPortal';
 import SectionBackdrop from '@/components/SectionBackdrop';
 import { computeBentoLayout } from './bentoEngine';
 import { getOptimizedVideoUrl, getOptimizedPosterUrl, getOptimizedImageUrl } from '@/lib/videoOptimizer';
+import { isHumanReadableTitle, cleanMediaCaption } from '@/lib/media';
 
 // Dynamically import 360 Viewer on demand
 const Pano360Viewer = dynamic(() => import('@/components/Pano360Viewer'), {
@@ -162,9 +163,12 @@ export default function GalleryClient({
   }, [filteredItems.length, visibleCount]);
 
   // Open Lightbox
-  const handleOpenLightbox = (tileIndex, e) => {
+  const handleOpenLightbox = (tile, tileIndex, e) => {
     lastClickedTileRef.current = e?.currentTarget;
-    setLightboxIndex(tileIndex);
+    const foundIdx = filteredItems.findIndex(
+      (it) => (it.id && it.id === tile.id) || (it._id && it._id === tile.id) || it.src === tile.src
+    );
+    setLightboxIndex(foundIdx >= 0 ? foundIdx : tileIndex);
   };
 
   // Close Lightbox & restore focus
@@ -353,7 +357,7 @@ export default function GalleryClient({
                   <button
                     key={tile.id}
                     type="button"
-                    onClick={(e) => handleOpenLightbox(tIdx, e)}
+                    onClick={(e) => handleOpenLightbox(tile, tIdx, e)}
                     className={styles.bentoTile}
                     style={{
                       gridColumn: `${tile.colStart} / span ${tile.colSpan}`,
@@ -404,12 +408,16 @@ export default function GalleryClient({
                       />
                     )}
 
-                    {/* Frosted White Caption Pill */}
-                    {(tile.title || tile.caption) && (
-                      <span className={`${styles.tileCaptionPill} ${labelPosClass}`}>
-                        {tile.title || tile.caption}
-                      </span>
-                    )}
+                    {/* Frosted White Caption Pill: Only show if human-readable title or room name exists */}
+                    {(() => {
+                      const displayLabel = cleanMediaCaption(tile.title || tile.caption) || (tile.roomName && isHumanReadableTitle(tile.roomName) ? tile.roomName : '');
+                      if (!displayLabel) return null;
+                      return (
+                        <span className={`${styles.tileCaptionPill} ${labelPosClass}`}>
+                          {displayLabel}
+                        </span>
+                      );
+                    })()}
                   </button>
                 );
               })}

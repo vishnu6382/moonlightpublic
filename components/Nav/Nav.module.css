@@ -1,6 +1,6 @@
 .header {
   position: sticky;
-  top: 0;
+  top: var(--festive-top-offset, 0px);
   left: 0;
   width: 100%;
   z-index: 100;
@@ -15,6 +15,15 @@
     top 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     border-radius 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.4s ease;
+}
+
+.headerWithFestiveLights {
+  top: var(--festive-top-offset, 0px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.headerWithFestiveLights.floatingPill {
+  top: calc(var(--festive-top-offset, 0px) + 10px) !important;
 }
 
 /* Nav spacer to maintain layout height when pill floats */

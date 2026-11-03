@@ -28,6 +28,7 @@ import PublicShell from '@/components/PublicShell';
 import MoonCursorFX from '@/components/MoonCursorFX';
 import SmoothScroll from '@/components/SmoothScroll';
 import { getPublicHomeContent } from '@/lib/home';
+import { DEFAULT_FESTIVE_SETTINGS } from '@/lib/festiveHelper';
 
 const siteUrl = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 const isStaging = (process.env.NEXT_PUBLIC_SITE_ENV || '').toLowerCase() === 'staging' || (process.env.NEXT_PUBLIC_SITE_ENV || '').toLowerCase() === 'preview';
@@ -90,11 +91,13 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   let initialLogo = null;
+  let festiveSettings = null;
   try {
     const homeContent = await getPublicHomeContent();
     initialLogo = homeContent?.logo || null;
+    festiveSettings = homeContent?.siteSettings?.festive || DEFAULT_FESTIVE_SETTINGS;
   } catch (e) {
-    // Graceful fallback
+    festiveSettings = DEFAULT_FESTIVE_SETTINGS;
   }
 
   return (
@@ -119,7 +122,7 @@ export default async function RootLayout({ children }) {
       <body className={poppins.className}>
         <EnquiryProvider>
           <SmoothScroll>
-            <PublicShell initialLogo={initialLogo}>{children}</PublicShell>
+            <PublicShell initialLogo={initialLogo} festiveSettings={festiveSettings}>{children}</PublicShell>
           </SmoothScroll>
         </EnquiryProvider>
         <MoonCursorFX />

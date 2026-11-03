@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { getOptimizedVideoUrl, getOptimizedPosterUrl } from '@/lib/videoOptimizer';
+import { cleanMediaCaption } from '@/lib/media';
 import styles from './GalleryClient.module.css';
 
 export default function Lightbox({
@@ -203,16 +204,21 @@ export default function Lightbox({
         </button>
       )}
 
-      {/* Bottom Bar: Title & Caption */}
-      {(currentItem.title || currentItem.caption) && (
-        <div className={styles.lightboxBottomBar}>
-          <div className={styles.lightboxCaptionPill}>
-            {currentItem.title && <strong>{currentItem.title}</strong>}
-            {currentItem.title && currentItem.caption && <span className={styles.captionDot}>•</span>}
-            {currentItem.caption && <span>{currentItem.caption}</span>}
+      {/* Bottom Bar: Title & Caption (only human-readable) */}
+      {(() => {
+        const cleanTitle = cleanMediaCaption(currentItem.title);
+        const cleanCaption = cleanMediaCaption(currentItem.caption);
+        if (!cleanTitle && !cleanCaption) return null;
+        return (
+          <div className={styles.lightboxBottomBar}>
+            <div className={styles.lightboxCaptionPill}>
+              {cleanTitle && <strong>{cleanTitle}</strong>}
+              {cleanTitle && cleanCaption && <span className={styles.captionDot}>•</span>}
+              {cleanCaption && <span>{cleanCaption}</span>}
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }

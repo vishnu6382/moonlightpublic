@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { getOptimizedVideoUrl, getOptimizedPosterUrl } from '@/lib/videoOptimizer';
+import { cleanMediaCaption } from '@/lib/media';
 import styles from './MediaLightbox.module.css';
 
 export default function MediaLightbox({
@@ -124,9 +125,9 @@ export default function MediaLightbox({
         </div>
 
         {/* Caption */}
-        {currentItem.caption && (
+        {cleanMediaCaption(currentItem.caption || currentItem.title) && (
           <div className={styles.captionBar}>
-            <p>{currentItem.caption}</p>
+            <p>{cleanMediaCaption(currentItem.caption || currentItem.title)}</p>
           </div>
         )}
 
