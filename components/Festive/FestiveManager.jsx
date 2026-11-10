@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import FestiveBanner from './FestiveBanner';
 import FestiveLights from './FestiveLights';
@@ -11,7 +11,6 @@ import styles from './FestiveManager.module.css';
 
 export default function FestiveManager({ festive }) {
   const [bannerDismissed, setBannerDismissed] = useState(false);
-  const containerRef = useRef(null);
   const pathname = usePathname();
 
   const activeFestive = getActiveFestiveConfig(festive);
@@ -26,18 +25,18 @@ export default function FestiveManager({ festive }) {
     } catch {}
   }, []);
 
-  // Whenever user enters any page during festival time, celebrate with firecrackers!
+  // Whenever user enters any page during active festival time, celebrate with firecrackers!
   useEffect(() => {
     if (!isActive) return;
 
     const timer = setTimeout(() => {
       launchCelebration();
-    }, 1100);
+    }, 1200);
 
     return () => clearTimeout(timer);
   }, [isActive, pathname]);
 
-  // Dynamically measure exact pixel height of top festive container and expose to CSS
+  // Set CSS custom property directly without expensive continuous ResizeObserver loops
   useEffect(() => {
     if (typeof document === 'undefined') return;
 
@@ -46,29 +45,19 @@ export default function FestiveManager({ festive }) {
       return;
     }
 
-    const updateHeight = () => {
-      if (containerRef.current) {
-        const h = containerRef.current.offsetHeight;
-        document.documentElement.style.setProperty('--festive-top-offset', `${h}px`);
-      } else {
-        document.documentElement.style.setProperty('--festive-top-offset', '0px');
-      }
-    };
+    const showBanner = activeFestive?.banner?.enabled !== false && !bannerDismissed;
+    const showLights = activeFestive?.decorations?.showLights !== false;
 
-    updateHeight();
-
-    let ro = null;
-    if (typeof ResizeObserver !== 'undefined' && containerRef.current) {
-      ro = new ResizeObserver(updateHeight);
-      ro.observe(containerRef.current);
+    let offset = 0;
+    if (showBanner && showLights) {
+      offset = 80;
+    } else if (showBanner) {
+      offset = 44;
+    } else if (showLights) {
+      offset = 36;
     }
 
-    window.addEventListener('resize', updateHeight, { passive: true });
-
-    return () => {
-      if (ro) ro.disconnect();
-      window.removeEventListener('resize', updateHeight);
-    };
+    document.documentElement.style.setProperty('--festive-top-offset', `${offset}px`);
   }, [isActive, bannerDismissed, activeFestive]);
 
   if (!isActive) {
@@ -82,7 +71,7 @@ export default function FestiveManager({ festive }) {
   return (
     <>
       {(showBanner || showLights) && (
-        <div ref={containerRef} className={styles.festiveTopContainer}>
+        <div className={styles.festiveTopContainer}>
           {showBanner && (
             <FestiveBanner
               banner={activeFestive.banner}

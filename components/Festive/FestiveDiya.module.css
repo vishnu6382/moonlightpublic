@@ -9,21 +9,22 @@
   cursor: pointer;
   user-select: none;
   animation: floatSubtle 3.6s ease-in-out infinite alternate;
-  filter: drop-shadow(0 10px 28px rgba(0, 0, 0, 0.22));
   transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
   pointer-events: auto !important;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .diyaWidgetWrapper:hover {
-  transform: translateY(-4px) scale(1.04);
+  transform: translateY(-4px) scale(1.04) translateZ(0);
 }
 
 @keyframes floatSubtle {
   0% {
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
   100% {
-    transform: translateY(-6px);
+    transform: translateY(-6px) translateZ(0);
   }
 }
 
@@ -35,7 +36,7 @@
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, #422006, #1C0A00);
   border: 2px solid #FCD34D;
-  box-shadow: 0 0 20px rgba(255, 174, 66, 0.85), inset 0 0 10px rgba(255, 193, 7, 0.6);
+  box-shadow: 0 0 16px rgba(255, 174, 66, 0.75), 0 6px 18px rgba(0, 0, 0, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,21 +46,22 @@
 
 .diyaGlowAura {
   position: absolute;
-  inset: -8px;
+  inset: -6px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 179, 0, 0.4) 0%, transparent 70%);
-  animation: pulseAura 2s ease-in-out infinite alternate;
+  background: radial-gradient(circle, rgba(255, 179, 0, 0.35) 0%, transparent 70%);
+  animation: pulseAura 2.2s ease-in-out infinite alternate;
   pointer-events: none;
+  will-change: opacity, transform;
 }
 
 @keyframes pulseAura {
   0% {
-    transform: scale(0.9);
-    opacity: 0.5;
+    transform: scale(0.92);
+    opacity: 0.4;
   }
   100% {
-    transform: scale(1.25);
-    opacity: 0.9;
+    transform: scale(1.15);
+    opacity: 0.8;
   }
 }
 
@@ -73,8 +75,9 @@
 /* Realistic burning animated flame */
 .flame {
   transform-origin: 22px 20px;
-  animation: flameFlicker 1.2s ease-in-out infinite alternate;
-  filter: drop-shadow(0 0 8px #FF6D00) drop-shadow(0 0 16px #FFD700);
+  animation: flameFlicker 1.4s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 6px #FF9100);
+  will-change: transform;
 }
 
 @keyframes flameFlicker {
@@ -83,7 +86,7 @@
     opacity: 0.9;
   }
   25% {
-    transform: scale(1.1) rotate(3deg);
+    transform: scale(1.08) rotate(3deg);
     opacity: 1;
   }
   50% {
@@ -91,7 +94,7 @@
     opacity: 0.88;
   }
   75% {
-    transform: scale(1.14) rotate(2deg);
+    transform: scale(1.12) rotate(2deg);
     opacity: 1;
   }
   100% {
@@ -104,8 +107,6 @@
 .diyaPill {
   position: relative;
   background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1.5px solid rgba(245, 158, 11, 0.55);
   border-left: none;
   padding: 8px 16px 8px 18px;
@@ -115,13 +116,13 @@
   align-items: center;
   gap: 8px;
   z-index: 1;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 }
 
 .sparkleIcon {
   font-size: 0.85rem;
   color: #D97706;
-  animation: pulseSparkle 1.8s infinite ease-in-out;
+  animation: pulseSparkle 2s infinite ease-in-out;
 }
 
 @keyframes pulseSparkle {
@@ -129,7 +130,7 @@
     transform: scale(1) rotate(0deg);
   }
   50% {
-    transform: scale(1.25) rotate(15deg);
+    transform: scale(1.2) rotate(12deg);
   }
 }
 
@@ -158,7 +159,7 @@
   gap: 2px;
 }
 
-/* Mobile Screens (above mobile action bottom bar) */
+/* Mobile Screens */
 @media (max-width: 768px) {
   .diyaWidgetWrapper {
     bottom: 92px;
